@@ -27,7 +27,7 @@ export default function AddTask({onClose, onTaskAdd}) {
 
         const newTask = {
             id: generateId(),
-            title: taskName,
+            name: taskName,
             tags: tagsArr,
             time: 0,
             active: false,
