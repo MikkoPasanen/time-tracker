@@ -7,6 +7,9 @@
 Time tracker is an React app, which allows you to
 track time for individual tasks!
 
+Uses json-server to host a server so a .json file
+can be used as a "database".
+
 ## Features
 
 - Create / delete / modify tasks
