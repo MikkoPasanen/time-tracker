@@ -1,11 +1,11 @@
 import Navbar from "./Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Settings from "./pages/Settings";
-import About from "./pages/About";
-import ErrorPage from "./pages/ErrorPage";
-import CreateTask from "./pages/CreateTask";
-import "./styles/app.css"
+import Home from "../pages/Home";
+import Settings from "../pages/Settings";
+import About from "../pages/About";
+import ErrorPage from "../pages/ErrorPage";
+import CreateTask from "../pages/CreateTask";
+import "../styles/app.css"
 
 export default function App() {
   return (

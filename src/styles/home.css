@@ -97,7 +97,7 @@
 
 .name-input {
     background-color: transparent;
-    border: 1px solid #243242;
+    border: 2px solid #243242;
     color: #eaf2fa;
 }
 
@@ -111,4 +111,13 @@
     margin-top: 0;
 }
 
+.edit-task-name-x,
+.edit-task-name-pen {
+    background-color: transparent;
+    border: none;
+    color: #eaf2fa;
+    font-size: 1.2rem;
+    padding: 0;
+    cursor: pointer;
+}
 

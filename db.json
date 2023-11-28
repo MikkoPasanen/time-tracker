@@ -2,7 +2,7 @@
   "tasks": [
     {
       "id": 1700825332148,
-      "title": "Code apps",
+      "name": "Code apps",
       "tags": [
         "important",
         "school",
@@ -13,7 +13,7 @@
     },
     {
       "id": 1700825568799,
-      "title": "Gym",
+      "name": "Gym",
       "tags": [
         "health"
       ],
@@ -22,7 +22,7 @@
     },
     {
       "id": 1700825606423,
-      "title": "Play videogames",
+      "name": "Play videogames",
       "tags": [],
       "time": 0,
       "active": false

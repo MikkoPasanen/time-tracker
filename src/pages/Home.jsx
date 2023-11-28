@@ -46,6 +46,21 @@ export default function Home() {
         setFetchData(!fetchData);
     }
 
+    const handleTaskNameChange = async (taskId, taskName) => {
+        let url = `http://localhost:3010/tasks/${taskId}`;
+
+        await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                name: taskName
+            })
+        });
+    }
+
     return (
         <>
             <h1>Home</h1>
@@ -64,10 +79,11 @@ export default function Home() {
                     <Task
                         key={task.id.toString()}
                         id={task.id}
-                        title={task.title}
+                        name={task.name}
                         tags={task.tags}
                         time={task.time}
                         onDelete={() => handleTaskDelete(task.id)}
+                        onNameChange={handleTaskNameChange}
                     />
                 ))}
             </div>
