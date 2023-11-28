@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Montserrat&family=Oswald&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: "Montserrat";
+}
+
+body {
+    margin: 0;
+    background-color: #09182a;
+    color: #eaf2fa;
+}
+
+body h1 {
+    letter-spacing: .1rem;
+}

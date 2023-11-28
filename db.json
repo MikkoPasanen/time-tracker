@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "id": 1700825332148,
+      "title": "Code apps",
+      "tags": [
+        "important",
+        "school",
+        "money"
+      ],
+      "time": 0,
+      "active": false
+    },
+    {
+      "id": 1700825568799,
+      "title": "Gym",
+      "tags": [
+        "health"
+      ],
+      "time": 0,
+      "active": false
+    },
+    {
+      "id": 1700825606423,
+      "title": "Play videogames",
+      "tags": [],
+      "time": 0,
+      "active": false
+    }
+  ],
+  "all-tags": [
+    "important",
+    "school",
+    "money"
+  ],
+  "settings": {
+    "darktheme": true,
+    "defaultmode": true
+  }
+}

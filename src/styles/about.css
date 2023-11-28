@@ -1,0 +1,12 @@
+.aboutpage {
+    margin: 2rem 0 4rem 0;
+}
+
+.aboutpage .info-box {
+    margin-bottom: 2.5rem;
+}
+
+.aboutpage h2 {
+    text-decoration: underline;
+    letter-spacing: .1rem;
+}
