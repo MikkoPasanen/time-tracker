@@ -6,10 +6,14 @@ import "../styles/home.css";
 import "../styles/addtask.css";
 
 export default function Home() {
+    // Holds all tasks
     const [tasks, setTasks] = useState([]);
+    // Manage create task popup visibility
     const [showPopup, setShowPopup] = useState(false);
+    // Manage if data should be fetched again from db.json or not
     const [fetchData, setFetchData] = useState(false);
 
+    // When called, fetch all tasks from db.json
     const fetchTasks = async () => {
         let url = "http://localhost:3010/tasks";
 
@@ -22,8 +26,11 @@ export default function Home() {
         fetchTasks();
     }, [fetchData]);
 
+    // When new task is created, send POST request to db.json
     const handleTaskAdd = async (newTask) => {
         let url = "http://localhost:3010/tasks";
+
+        // Add the new task into a state so it gets updated in the UI
         setTasks([...tasks, newTask]);
 
         await fetch(url, {
@@ -36,6 +43,7 @@ export default function Home() {
         });
     };
 
+    // When called, send DELETE request to db.json for deletion of spesific task
     const handleTaskDelete = async (taskId) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
 

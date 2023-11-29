@@ -16,10 +16,15 @@ export default function Task({
     startedTrackingTime,
     onDelete,
 }) {
+    // This manages if the name change input field should be visible or not
     const [editMode, setEditMode] = useState(false);
+    // This holds the tasks name
     const [taskName, setTaskName] = useState(name);
+    // This holds the tasks overall time
     const [taskTime, setTaskTime] = useState(time);
+    // This manages if the task is currently tracking time or not
     const [trackingTime, setTrackingTime] = useState(active);
+    // This holds the time when the time tracking started
     const [startedTrackingAt, setStartedTrackingAt] =
         useState(startedTrackingTime);
 
@@ -31,6 +36,7 @@ export default function Task({
         setTaskName(e.target.value);
     };
 
+    // When called, send PATCH request to the db.json to change the name
     const submitTaskName = async (taskId, taskName) => {
         setEditMode(!editMode);
         let url = `http://localhost:3010/tasks/${taskId}`;
@@ -47,13 +53,20 @@ export default function Task({
         });
     };
 
+    // When called, handle the task time tracking logic
     const trackTime = async (taskId) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
 
+        // If currently not tracking time
         if (!trackingTime) {
-            console.log("Started tracking");
+            // Store the start of the tracking time as milliseconds
             const time = Date.now();
+
+            // Change time tracking mode
             setTrackingTime(!trackingTime);
+
+            // Send PATCH request to db.json
+            // Change tasks tracking start time and active status
             await fetch(url, {
                 method: "PATCH",
                 headers: {
@@ -65,12 +78,24 @@ export default function Task({
                     active: true,
                 }),
             });
+
+            // Store the start of the tracking time into a state
             setStartedTrackingAt(time);
+
+            // If currently tracking time
         } else {
+            // Calculate the time between the start of the time track and current time
             const timeSubstraction = Date.now() - startedTrackingAt;
+
+            // Change tracking mode
             setTrackingTime(!trackingTime);
+
+            // Calculate the tasks overall tracked time and store it into a state
             const newTime = taskTime + timeSubstraction;
             setTaskTime(newTime);
+
+            // Send PATCH request to db.json
+            // Change tasks overall tracked time and active status
             await fetch(url, {
                 method: "PATCH",
                 headers: {
