@@ -17,6 +17,18 @@ can be used as a "database".
 - Track time for individual tasks, even if the app is closed
 - Settings screen, where you can toggle dark / light mode and alternative mode for tracking time (You can either track time for 1 task or multiple tasks at once)
 
+## Usage
+
+For now, clone this repository and install dependencies
+```
+npm i
+```
+Then start the project with this while in the root directory:
+```
+npm run all
+```
+This will start the site at localhost:5173 and also the json-server
+
 ## Author
 
 Mikko Pasanen <mikko.pasanen@tuni.fi>
