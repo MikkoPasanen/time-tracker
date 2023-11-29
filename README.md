@@ -14,6 +14,7 @@ can be used as a "database".
 
 - Create / delete / modify tasks
 - Add tags for tasks
+- Sort tasks based on tags
 - Track time for individual tasks, even if the app is closed
 - Settings screen, where you can toggle dark / light mode and alternative mode for tracking time (You can either track time for 1 task or multiple tasks at once)
 
