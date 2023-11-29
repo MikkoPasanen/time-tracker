@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Task from "../components/Task";
 import AddTask from "../components/AddTask";
 import { BiPlusCircle } from "react-icons/bi";
-import "../styles/home.css"
-import "../styles/addtask.css"
+import "../styles/home.css";
+import "../styles/addtask.css";
 
 export default function Home() {
     const [tasks, setTasks] = useState([]);
@@ -16,7 +16,7 @@ export default function Home() {
         const res = await fetch(url);
         const tasks = await res.json();
         setTasks(tasks);
-    }
+    };
 
     useEffect(() => {
         fetchTasks();
@@ -27,39 +27,24 @@ export default function Home() {
         setTasks([...tasks, newTask]);
 
         await fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
+                Accept: "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(newTask)
-        })
-    }
+            body: JSON.stringify(newTask),
+        });
+    };
 
     const handleTaskDelete = async (taskId) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
 
         await fetch(url, {
-            method: 'DELETE'
+            method: "DELETE",
         });
 
         setFetchData(!fetchData);
-    }
-
-    const handleTaskNameChange = async (taskId, taskName) => {
-        let url = `http://localhost:3010/tasks/${taskId}`;
-
-        await fetch(url, {
-            method: 'PATCH',
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                name: taskName
-            })
-        });
-    }
+    };
 
     return (
         <>
@@ -68,7 +53,10 @@ export default function Home() {
 
             <div className="headers">
                 <h2>All tasks</h2>
-                <button className="create-task" onClick={() => setShowPopup(true)}>
+                <button
+                    className="create-task"
+                    onClick={() => setShowPopup(true)}
+                >
                     <BiPlusCircle />
                     Create task
                 </button>
@@ -81,14 +69,20 @@ export default function Home() {
                         id={task.id}
                         name={task.name}
                         tags={task.tags}
+                        active={task.active}
                         time={task.time}
+                        startedTrackingTime={task.startedTrackingAt}
                         onDelete={() => handleTaskDelete(task.id)}
-                        onNameChange={handleTaskNameChange}
                     />
                 ))}
             </div>
 
-            {showPopup && <AddTask onClose={() => setShowPopup(false)} onTaskAdd={handleTaskAdd}/>}
+            {showPopup && (
+                <AddTask
+                    onClose={() => setShowPopup(false)}
+                    onTaskAdd={handleTaskAdd}
+                />
+            )}
         </>
     );
 }

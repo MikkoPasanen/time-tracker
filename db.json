@@ -2,13 +2,14 @@
   "tasks": [
     {
       "id": 1700825332148,
-      "name": "Code apps",
+      "name": "Code Apps",
       "tags": [
         "important",
         "school",
         "money"
       ],
-      "time": 0,
+      "time": 4213,
+      "startedTrackingAt": 1701267553105,
       "active": false
     },
     {
@@ -17,7 +18,8 @@
       "tags": [
         "health"
       ],
-      "time": 0,
+      "time": 8126,
+      "startedTrackingAt": 1701267661730,
       "active": false
     },
     {
@@ -25,6 +27,7 @@
       "name": "Play videogames",
       "tags": [],
       "time": 0,
+      "startedTrackingAt": 1701266241813,
       "active": false
     }
   ],

@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { BiX } from "react-icons/bi";
 
-
-export default function AddTask({onClose, onTaskAdd}) {
+export default function AddTask({ onClose, onTaskAdd }) {
     const [taskName, setTaskName] = useState("");
     const [tags, setTags] = useState([]);
 
@@ -19,8 +18,8 @@ export default function AddTask({onClose, onTaskAdd}) {
         e.preventDefault();
 
         let tagsArr = [];
-        if(typeof tags === 'string') {
-            tagsArr = tags.split(",").map((tag) => tag.trim())
+        if (typeof tags === "string") {
+            tagsArr = tags.split(",").map((tag) => tag.trim());
         } else {
             tagsArr = tags;
         }
@@ -29,6 +28,7 @@ export default function AddTask({onClose, onTaskAdd}) {
             id: generateId(),
             name: taskName,
             tags: tagsArr,
+            startedTrackingAt: null,
             time: 0,
             active: false,
         };
@@ -37,11 +37,11 @@ export default function AddTask({onClose, onTaskAdd}) {
 
         onTaskAdd(newTask);
         onClose();
-    }
+    };
 
     const generateId = () => {
         return Date.now() + Math.floor(Math.random() * 10);
-    }
+    };
 
     return (
         <div className="create-task-popup">
