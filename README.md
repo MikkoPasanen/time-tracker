@@ -18,7 +18,7 @@ can be used as a "database".
 - Settings screen, where you can toggle dark / light mode and alternative mode for tracking time (You can either track time for 1 task or multiple tasks at once)
 
 ## Usage
-
+<b>NOTE: This project is in progress! All features may have not been implemented yet</b>
 For now, clone this repository and install dependencies
 ```
 npm i
