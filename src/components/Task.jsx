@@ -3,6 +3,8 @@ import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { BiPencil } from "react-icons/bi";
 import { BiXCircle } from "react-icons/bi";
+import { BiStopCircle } from "react-icons/bi";
+import { BiPlayCircle } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
 
 export default function Task({
@@ -148,10 +150,24 @@ export default function Task({
                         </small>
                     ))}
                 </div>
-                <p>Time:</p>
                 <p className="task-time">{formatTime(taskTime)}</p>
-                <button className="start-time" onClick={() => trackTime(id)}>
-                    Start tracking
+                <button
+                    className={`start-time-button ${
+                        trackingTime ? "tracking-inactive" : "tracking-active"
+                    }`}
+                    onClick={() => trackTime(id)}
+                >
+                    {trackingTime ? (
+                        <span className="start-time-button-content">
+                            Stop tracking
+                            <BiStopCircle className="time-icon" />
+                        </span>
+                    ) : (
+                        <span className="start-time-button-content">
+                            Start tracking
+                            <BiPlayCircle className="time-icon" />
+                        </span>
+                    )}
                 </button>
             </div>
         </div>
