@@ -19,6 +19,8 @@ can be used as a "database".
 
 ## Usage
 <b>NOTE: This project is in progress! All features may have not been implemented yet</b>
+<br>
+<br>
 For now, clone this repository and install dependencies
 ```
 npm i
