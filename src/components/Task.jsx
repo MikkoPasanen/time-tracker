@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BiTrash } from "react-icons/bi";
 import { BiPencil } from "react-icons/bi";
 import { BiXCircle } from "react-icons/bi";
@@ -20,8 +20,10 @@ export default function Task({
     const [editMode, setEditMode] = useState(false);
     // This holds the tasks name
     const [taskName, setTaskName] = useState(name);
-    // This holds the tasks overall time
+    // This holds the tasks overall time in database
     const [taskTime, setTaskTime] = useState(time);
+    // This holds the task overall time in UI
+    const [taskTimeUI, setTaskTimeUI] = useState(time);
     // This manages if the task is currently tracking time or not
     const [trackingTime, setTrackingTime] = useState(active);
     // This holds the time when the time tracking started
@@ -59,11 +61,11 @@ export default function Task({
 
         // If currently not tracking time
         if (!trackingTime) {
-            // Store the start of the tracking time as milliseconds
-            const time = Date.now();
-
             // Change time tracking mode
             setTrackingTime(!trackingTime);
+
+            // Store the start of the tracking time as seconds
+            const time = Math.floor(Date.now() / 1000);
 
             // Send PATCH request to db.json
             // Change tasks tracking start time and active status
@@ -85,10 +87,8 @@ export default function Task({
             // If currently tracking time
         } else {
             // Calculate the time between the start of the time track and current time
-            const timeSubstraction = Date.now() - startedTrackingAt;
-
-            // Change tracking mode
-            setTrackingTime(!trackingTime);
+            const timeSubstraction =
+                Math.floor(Date.now() / 1000) - startedTrackingAt;
 
             // Calculate the tasks overall tracked time and store it into a state
             const newTime = taskTime + timeSubstraction;
@@ -107,14 +107,33 @@ export default function Task({
                     active: false,
                 }),
             });
+
+            // Change tracking mode
+            setTrackingTime(!trackingTime);
         }
     };
 
-    // Used to format time into hh:mm:ss
-    const formatTime = (milliseconds) => {
-        // Get seconds from the milliseconds
-        let seconds = Math.floor(milliseconds / 1000);
+    useEffect(() => {
+        let interval;
 
+        if (trackingTime) {
+            interval = setInterval(() => {
+                const currentTime = Math.floor(Date.now() / 1000);
+                const elapsedTime = currentTime - startedTrackingAt;
+                const newTime = taskTime + elapsedTime;
+                setTaskTimeUI(newTime);
+            }, 1000);
+        } else {
+            clearInterval(interval);
+        }
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [trackingTime, startedTrackingAt, taskTime]);
+
+    // Used to format time into hh:mm:ss
+    const formatTime = (seconds) => {
         // Get hours from the seconds and calculate remaining seconds
         let hours = Math.floor(seconds / 3600);
         seconds %= 3600;
@@ -175,7 +194,7 @@ export default function Task({
                         </small>
                     ))}
                 </div>
-                <p className="task-time">{formatTime(taskTime)}</p>
+                <p className="task-time">{formatTime(taskTimeUI)}</p>
                 <button
                     className={`start-time-button ${
                         trackingTime ? "tracking-inactive" : "tracking-active"
