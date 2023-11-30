@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
-import { useTheme } from "../components/ThemeContext";
+import { useSettings } from "../components/SettingsContext";
 
 export default function Navbar() {
-    const { darkMode } = useTheme();
+    const { darkMode } = useSettings();
     return (
         <nav className="navbar" theme={darkMode ? "dark-theme" : "light-theme"}>
             <ul>

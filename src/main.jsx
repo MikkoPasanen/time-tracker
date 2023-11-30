@@ -2,15 +2,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App.jsx";
-import { ThemeProvider } from "./components/ThemeContext.jsx";
+import { SettingsProvider } from "./components/SettingsContext.jsx";
 import "./styles/styles.css";
 
 const Main = () => {
     return (
         <React.StrictMode>
-            <ThemeProvider>
+            <SettingsProvider>
                 <App />
-            </ThemeProvider>
+            </SettingsProvider>
         </React.StrictMode>
     );
 };

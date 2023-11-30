@@ -8,8 +8,8 @@
         "school",
         "money"
       ],
-      "time": 383,
-      "startedTrackingAt": 1701365804,
+      "time": 685,
+      "startedTrackingAt": 1701384265,
       "active": false
     },
     {
@@ -18,16 +18,16 @@
       "tags": [
         "health"
       ],
-      "time": 116,
-      "startedTrackingAt": 1701361053,
+      "time": 210,
+      "startedTrackingAt": 1701384242,
       "active": false
     },
     {
       "id": 1701203437723,
       "name": "Play videogames",
       "tags": [],
-      "time": 0,
-      "startedTrackingAt": 1701266241813,
+      "time": 2,
+      "startedTrackingAt": 1701383215,
       "active": false
     }
   ],
@@ -38,6 +38,6 @@
   ],
   "settings": {
     "darktheme": true,
-    "defaultmode": true
+    "multipletrack": true
   }
 }

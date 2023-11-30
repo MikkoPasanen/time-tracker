@@ -8,7 +8,7 @@ import { BiXCircle } from "react-icons/bi";
 import { BiStopCircle } from "react-icons/bi";
 import { BiPlayCircle } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
-import { useTheme } from "../components/ThemeContext";
+import { useSettings } from "./SettingsContext";
 
 export default function Task({
     id,
@@ -18,6 +18,8 @@ export default function Task({
     active,
     startedTrackingTime,
     onDelete,
+    tasks,
+    updateTasks,
 }) {
     // This manages if the name change input field should be visible or not
     const [editMode, setEditMode] = useState(false);
@@ -33,7 +35,8 @@ export default function Task({
     const [startedTrackingAt, setStartedTrackingAt] =
         useState(startedTrackingTime);
 
-    const { darkMode } = useTheme();
+    // Custom hook from ThemeContext
+    const { darkMode, multipleTrack } = useSettings();
 
     const editNameChangeMode = () => {
         setEditMode(!editMode);
@@ -58,63 +61,98 @@ export default function Task({
                 name: taskName,
             }),
         });
+
+        const updatedTasks = tasks.map((task) =>
+            task.id === taskId ? { ...task, active: true } : task
+        );
+
+        updateTasks(updatedTasks);
     };
 
     // When called, handle the task time tracking logic
     const trackTime = async (taskId) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
 
-        // If currently not tracking time
-        if (!trackingTime) {
-            // Change time tracking mode
-            setTrackingTime(!trackingTime);
+        // Find all the tasks that are active right now
+        const activeTasks = tasks.filter((task) => task.active === true);
 
-            // Store the start of the tracking time as seconds
-            const time = Math.floor(Date.now() / 1000);
+        // Find this spesific task
+        const thisTask = tasks.find((task) => task.id === taskId);
 
-            // Send PATCH request to db.json
-            // Change tasks tracking start time and active status
-            await fetch(url, {
-                method: "PATCH",
-                headers: {
-                    Accept: "application/json",
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    startedTrackingAt: time,
-                    active: true,
-                }),
-            });
+        // If multiple task tracking is active
+        // Or active task amount is less than 1
+        // Or this spesific task is active
+        if (multipleTrack || activeTasks.length < 1 || thisTask.active) {
+            // If currently not tracking time
+            if (!trackingTime) {
+                // Change time tracking mode
+                setTrackingTime(!trackingTime);
 
-            // Store the start of the tracking time into a state
-            setStartedTrackingAt(time);
+                // Use the useState that we got as props from Home.jsx
+                // Use functional update to update the tasks array state,
+                // since we need to know how many tasks are active at the moment
+                updateTasks((prevTasks) =>
+                    prevTasks.map((task) =>
+                        task.id === taskId ? { ...task, active: true } : task
+                    )
+                );
 
-            // If currently tracking time
-        } else {
-            // Calculate the time between the start of the time track and current time
-            const timeSubstraction =
-                Math.floor(Date.now() / 1000) - startedTrackingAt;
+                // Store the start of the tracking time as seconds
+                const time = Math.floor(Date.now() / 1000);
 
-            // Calculate the tasks overall tracked time and store it into a state
-            const newTime = taskTime + timeSubstraction;
-            setTaskTime(newTime);
+                // Send PATCH request to db.json
+                // Change tasks tracking start time and active status
+                await fetch(url, {
+                    method: "PATCH",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        startedTrackingAt: time,
+                        active: true,
+                    }),
+                });
 
-            // Send PATCH request to db.json
-            // Change tasks overall tracked time and active status
-            await fetch(url, {
-                method: "PATCH",
-                headers: {
-                    Accept: "application/json",
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    time: newTime,
-                    active: false,
-                }),
-            });
+                // Store the start of the tracking time into a state
+                setStartedTrackingAt(time);
 
-            // Change tracking mode
-            setTrackingTime(!trackingTime);
+                // If currently tracking time
+            } else {
+                // Use the useState that we got as props from Home.jsx
+                // Use functional update to update the tasks array state,
+                // since we need to know how many tasks are active at the moment
+                updateTasks((prevTasks) =>
+                    prevTasks.map((task) =>
+                        task.id === taskId ? { ...task, active: false } : task
+                    )
+                );
+
+                // Calculate the time between the start of the time track and current time
+                const timeSubstraction =
+                    Math.floor(Date.now() / 1000) - startedTrackingAt;
+
+                // Calculate the tasks overall tracked time and store it into a state
+                const newTime = taskTime + timeSubstraction;
+                setTaskTime(newTime);
+
+                // Send PATCH request to db.json
+                // Change tasks overall tracked time and active status
+                await fetch(url, {
+                    method: "PATCH",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        time: newTime,
+                        active: false,
+                    }),
+                });
+
+                // Change tracking mode
+                setTrackingTime(!trackingTime);
+            }
         }
     };
 
