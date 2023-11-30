@@ -1,10 +1,10 @@
-import "../styles/navbar.css"
+/* eslint-disable react/no-unknown-property */
+import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
 import { useTheme } from "../components/ThemeContext";
 
-
 export default function Navbar() {
-    const {darkMode} = useTheme();
+    const { darkMode } = useTheme();
     return (
         <nav className="navbar" theme={darkMode ? "dark-theme" : "light-theme"}>
             <ul>
@@ -12,7 +12,9 @@ export default function Navbar() {
                     <NavLink
                         to="/"
                         style={({ isActive }) => ({
-                            textDecoration: isActive ? "underline" : "none"})}>
+                            textDecoration: isActive ? "underline" : "none",
+                        })}
+                    >
                         Home
                     </NavLink>
                 </li>
@@ -20,7 +22,9 @@ export default function Navbar() {
                     <NavLink
                         to="/about"
                         style={({ isActive }) => ({
-                            textDecoration: isActive ? "underline" : "none"})}>
+                            textDecoration: isActive ? "underline" : "none",
+                        })}
+                    >
                         About
                     </NavLink>
                 </li>
@@ -28,7 +32,9 @@ export default function Navbar() {
                     <NavLink
                         to="/settings"
                         style={({ isActive }) => ({
-                            textDecoration: isActive ? "underline" : "none"})}>
+                            textDecoration: isActive ? "underline" : "none",
+                        })}
+                    >
                         Settings
                     </NavLink>
                 </li>

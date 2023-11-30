@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { useState, useEffect } from "react";
 import Task from "../components/Task";
 import { useTheme } from "../components/ThemeContext";
@@ -13,8 +14,8 @@ export default function Home() {
     const [showPopup, setShowPopup] = useState(false);
     // Manage if data should be fetched again from db.json or not
     const [fetchData, setFetchData] = useState(false);
-    
-    const {darkMode} = useTheme();
+
+    const { darkMode } = useTheme();
 
     // When called, fetch all tasks from db.json
     const fetchTasks = async () => {

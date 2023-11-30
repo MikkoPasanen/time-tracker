@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-unknown-property */
 import { useState } from "react";
 import { BiX } from "react-icons/bi";
 

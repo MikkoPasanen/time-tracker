@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
-import "../styles/task.css"
+import "../styles/task.css";
 import { useState, useEffect } from "react";
 import { BiTrash } from "react-icons/bi";
 import { BiPencil } from "react-icons/bi";
@@ -8,7 +9,6 @@ import { BiStopCircle } from "react-icons/bi";
 import { BiPlayCircle } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
 import { useTheme } from "../components/ThemeContext";
-
 
 export default function Task({
     id,
@@ -33,7 +33,7 @@ export default function Task({
     const [startedTrackingAt, setStartedTrackingAt] =
         useState(startedTrackingTime);
 
-    const {darkMode} = useTheme();
+    const { darkMode } = useTheme();
 
     const editNameChangeMode = () => {
         setEditMode(!editMode);
@@ -206,13 +206,15 @@ export default function Task({
                     }`}
                     onClick={() => trackTime(id)}
                 >
-                    {trackingTime ? 
+                    {trackingTime ? (
                         <BiStopCircle className="tracking-icon" />
-                        : 
+                    ) : (
                         <BiPlayCircle className="tracking-icon" />
-                    }
+                    )}
                 </button>
-                <p className="start-time-text">{trackingTime ? 'Stop tracking' : 'Start tracking'}</p>
+                <p className="start-time-text">
+                    {trackingTime ? "Stop tracking" : "Start tracking"}
+                </p>
             </div>
         </div>
     );
