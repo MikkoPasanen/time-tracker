@@ -1,5 +1,6 @@
+@import "themes.css";
+
 .create-task-popup {
-    background-color: white;
     width: 500px;
     height: 350px;
     margin:  auto;
@@ -9,8 +10,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    background-color: #0f2033;
-    border: 2px solid #243242
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
 }
 
 .create-task-form {
@@ -18,14 +19,16 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: var(--font-color);
 }
 
 .create-task-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #243242;
-    background-color: #0c1b2d;
+    border: 1px solid var(--border-color);
+    background-color: var(--fg-color);
+    color: var(--font-color);
     padding: 0 10px;
 }
 
@@ -36,24 +39,22 @@
 .create-task-name-input,
 .create-task-tags-input {
     background-color: transparent;
-    border: 2px solid #243242;
-    border-bottom: 2px solid #eaf2fa;
-    color: #eaf2fa;
+    border: 2px solid var(--border-color);
+    color: var(--font-color);
     padding: 10px;
     border-radius: 5px;
 }
 
 .create-task-name-input::placeholder,
 .create-task-tags-input::placeholder {
-    color: #eaf2fa;
+    color: var(--font-color);
     opacity: 50%;
 }
 
-
 .close-popup {
-    background-color: #0f2033;
+    background-color: transparent;
     display: flex;
-    color: #ff4b33;
+    color: var(--alert-color);
     border: none;
     font-size: 40px;
     cursor: pointer;
@@ -61,12 +62,12 @@
 }
 
 .create-task-button {
-    background-color: #0df2d7;
-    color: #0f2033;
+    background-color: var(--filled-button-color);
+    color: var(--filled-button-font);
     font-weight: 600;
     padding: .5rem;
     border-radius: 10px;
     height: 35px;
-    border: 2px solid #243242;
+    border: 2px solid var(--border-color);
     cursor: pointer;
 }

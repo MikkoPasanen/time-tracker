@@ -1,10 +1,12 @@
 import "../styles/navbar.css"
 import { NavLink } from "react-router-dom";
+import { useTheme } from "../components/ThemeContext";
 
 
 export default function Navbar() {
+    const {darkMode} = useTheme();
     return (
-        <nav className="navbar">
+        <nav className="navbar" theme={darkMode ? "dark-theme" : "light-theme"}>
             <ul>
                 <li>
                     <NavLink

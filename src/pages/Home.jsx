@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Task from "../components/Task";
+import { useTheme } from "../components/ThemeContext";
 import AddTask from "../components/AddTask";
 import { BiPlusCircle } from "react-icons/bi";
 import "../styles/home.css";
@@ -12,6 +13,8 @@ export default function Home() {
     const [showPopup, setShowPopup] = useState(false);
     // Manage if data should be fetched again from db.json or not
     const [fetchData, setFetchData] = useState(false);
+    
+    const {darkMode} = useTheme();
 
     // When called, fetch all tasks from db.json
     const fetchTasks = async () => {
@@ -55,7 +58,7 @@ export default function Home() {
     };
 
     return (
-        <>
+        <div theme={darkMode ? "dark-theme" : "light-theme"}>
             <h1>Home</h1>
             <p>Create tasks and keep track of time for spesific tasks</p>
 
@@ -91,6 +94,6 @@ export default function Home() {
                     onTaskAdd={handleTaskAdd}
                 />
             )}
-        </>
+        </div>
     );
 }

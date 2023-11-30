@@ -1,3 +1,5 @@
+@import "themes.css";
+
 .headers {
     display: flex;
     justify-content: space-between;
@@ -6,8 +8,8 @@
 }
 
 .create-task {
-    background-color: #0df2d7;
-    color: #0f2033;
+    background-color: var(--filled-button-color);
+    color: var(--filled-button-font);
     font-weight: 600;
     padding: 0.5rem;
     display: flex;
@@ -15,126 +17,7 @@
     border-radius: 10px;
     height: 35px;
     align-items: center;
-    border: 2px solid #243242;
+    border: 2px solid var(--filled-button-border);
     cursor: pointer;
 }
 
-.task {
-    background-color: #0f2033;
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 2rem;
-    border: 1px solid #243242;
-}
-
-.task-content {
-    display: flex;
-    flex-grow: 1;
-}
-
-.task-header {
-    background-color: #0c1b2d;
-    height: 40px;
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    border: 2px solid #243242;
-}
-
-.task-name {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    flex-direction: row;
-    gap: 0.5rem;
-}
-
-.delete-task {
-    background-color: #0f2033;
-    color: #eaf2fa;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-.task-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.tags {
-    display: flex;
-    gap: 1rem;
-    margin: 0.7rem;
-}
-
-.tag {
-    background-color: #0f2033;
-    color: #ffeb94;
-    border: 2px solid #243242;
-    border-radius: 10px;
-    height: 70%;
-    margin: 1px;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.2rem;
-}
-
-.start-time-button {
-    background-color: #0f2033;
-    border-radius: 10px;
-    padding: 5px;
-    margin-bottom: 1rem;
-    cursor: pointer;
-}
-
-.tracking-active {
-    color: #00f597;
-    border: 2px solid #00f597;
-}
-
-.tracking-inactive {
-    color: #ff4b33;
-    border: 2px solid #ff4b33;
-}
-
-.start-time-button-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.time-icon {
-    font-size: 1.3rem;
-}
-
-.name-input {
-    background-color: transparent;
-    border: 2px solid #243242;
-    color: #eaf2fa;
-}
-
-.remove-tag {
-    color: #eaf2fa;
-    cursor: pointer;
-}
-
-.task-time {
-    margin-bottom: 1rem;
-    margin-top: 0;
-}
-
-.edit-task-name-x,
-.edit-task-name-pen {
-    background-color: transparent;
-    border: none;
-    color: #eaf2fa;
-    font-size: 1.2rem;
-    padding: 0;
-    cursor: pointer;
-}

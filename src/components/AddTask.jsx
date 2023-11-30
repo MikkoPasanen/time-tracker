@@ -44,7 +44,7 @@ export default function AddTask({ onClose, onTaskAdd }) {
     };
 
     return (
-        <div className="create-task-popup">
+        <div className="create-task-popup" theme="light-theme">
             <div className="create-task-header">
                 <h3>Create new task</h3>
                 <button onClick={onClose} className="close-popup">

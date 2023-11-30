@@ -1,0 +1,120 @@
+@import "themes.css";
+
+.task {
+    background-color: var(--bg-color);
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    color: var(--font-color);
+}
+
+.task-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.task-header {
+    background-color: var(--fg-color);
+    height: 40px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+}
+
+.task-name {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.delete-task {
+    background-color: transparent;
+    border: none;
+    color: var(--font-color);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tags {
+    display: flex;
+    gap: 1rem;
+    margin: 0.7rem;
+}
+
+.tag {
+    background-color: var(--fg-color);
+    color: var(--tag-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    height: 70%;
+    margin: 1px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.start-time-button {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+}
+
+.start-time-text {
+    margin: 0;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.tracking-active {
+    color: #00f597;
+}
+
+.tracking-inactive {
+    color: #ff4b33;
+}
+
+.tracking-icon {
+    font-size: 2.5rem;
+}
+
+.name-input {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--font-color);
+    padding: 3px;
+}
+
+.remove-tag {
+    color: var(--font-color);
+    cursor: pointer;
+}
+
+.task-time {
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
+}
+
+.edit-task-name-x,
+.edit-task-name-pen {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    padding: 0;
+    cursor: pointer;
+    color: var(--font-color);
+}

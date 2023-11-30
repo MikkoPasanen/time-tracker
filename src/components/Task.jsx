@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import "../styles/task.css"
 import { useState, useEffect } from "react";
 import { BiTrash } from "react-icons/bi";
 import { BiPencil } from "react-icons/bi";
@@ -6,6 +7,8 @@ import { BiXCircle } from "react-icons/bi";
 import { BiStopCircle } from "react-icons/bi";
 import { BiPlayCircle } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
+import { useTheme } from "../components/ThemeContext";
+
 
 export default function Task({
     id,
@@ -29,6 +32,8 @@ export default function Task({
     // This holds the time when the time tracking started
     const [startedTrackingAt, setStartedTrackingAt] =
         useState(startedTrackingTime);
+
+    const {darkMode} = useTheme();
 
     const editNameChangeMode = () => {
         setEditMode(!editMode);
@@ -151,7 +156,7 @@ export default function Task({
     };
 
     return (
-        <div className="task">
+        <div className="task" theme={darkMode ? "dark-theme" : "light-theme"}>
             <div className="task-header">
                 <div className="task-name">
                     {!editMode && <h3>{taskName}</h3>}
@@ -201,18 +206,13 @@ export default function Task({
                     }`}
                     onClick={() => trackTime(id)}
                 >
-                    {trackingTime ? (
-                        <span className="start-time-button-content">
-                            Stop tracking
-                            <BiStopCircle className="time-icon" />
-                        </span>
-                    ) : (
-                        <span className="start-time-button-content">
-                            Start tracking
-                            <BiPlayCircle className="time-icon" />
-                        </span>
-                    )}
+                    {trackingTime ? 
+                        <BiStopCircle className="tracking-icon" />
+                        : 
+                        <BiPlayCircle className="tracking-icon" />
+                    }
                 </button>
+                <p className="start-time-text">{trackingTime ? 'Stop tracking' : 'Start tracking'}</p>
             </div>
         </div>
     );
