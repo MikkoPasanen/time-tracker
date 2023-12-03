@@ -32,7 +32,9 @@ export default function Home() {
 
         const res = await fetch(url);
         const tags = await res.json();
-        setAllTags(tags);
+        console.log(tags);
+        console.log(tags.all - tags);
+        setAllTags(tags.allTags);
     };
 
     useEffect(() => {
@@ -66,6 +68,20 @@ export default function Home() {
         });
 
         setFetchData(!fetchData);
+    };
+
+    const handleUpdateTags = async (newTags) => {
+        let url = "http://localhost:3010/all-tags";
+
+        await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({ allTags: newTags }),
+        });
+
+        fetchTags();
     };
 
     return (
@@ -106,6 +122,7 @@ export default function Home() {
                     onClose={() => setShowPopup(false)}
                     onTaskAdd={handleTaskAdd}
                     allTags={allTags}
+                    updateAllTags={handleUpdateTags}
                 />
             )}
         </div>

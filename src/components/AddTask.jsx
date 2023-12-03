@@ -1,21 +1,31 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import { BiX } from "react-icons/bi";
 import { useSettings } from "../components/SettingsContext";
 
-export default function AddTask({ onClose, onTaskAdd, allTags }) {
+export default function AddTask({
+    onClose,
+    onTaskAdd,
+    allTags,
+    updateAllTags,
+}) {
     const { darkMode } = useSettings();
     const [taskName, setTaskName] = useState("");
     const [selectedTags, setSelectedTags] = useState([]);
+    const [tagOptions, setTagOptions] = useState([]);
+
+    useEffect(() => {
+        generateOptions(allTags);
+    }, [allTags]);
 
     const handleTaskNameChange = (e) => {
         setTaskName(e.target.value);
     };
 
-    const handleTagsChange = (selectedTag) => {
-        const tagsArr = [...selectedTag];
+    const handleTagsChange = (selectedTags) => {
+        const tagsArr = selectedTags.map((option) => option.value);
         setSelectedTags(tagsArr);
     };
 
@@ -33,18 +43,30 @@ export default function AddTask({ onClose, onTaskAdd, allTags }) {
 
         console.log(newTask);
 
+        let tagsToUpdate = [];
+        for (let tag of selectedTags) {
+            if (!allTags.includes(tag)) {
+                tagsToUpdate.push(tag);
+            }
+        }
+
+        if (tagsToUpdate.length > 0) {
+            const newTags = [...allTags, ...tagsToUpdate];
+            updateAllTags(newTags);
+        }
+
         onTaskAdd(newTask);
         onClose();
     };
 
-    // Create an empty array to store the tags
-    let options = [];
+    const generateOptions = (allTags) => {
+        let options = [];
 
-    for (let tag of allTags) {
-        options.push({ value: tag, label: tag });
-    }
-
-    console.log(options);
+        for (let tag of allTags) {
+            options.push({ value: tag, label: tag });
+        }
+        setTagOptions(options);
+    };
 
     const generateId = () => {
         return Date.now() + Math.floor(Math.random() * 10);
@@ -78,7 +100,7 @@ export default function AddTask({ onClose, onTaskAdd, allTags }) {
                     <CreatableSelect
                         isMulti
                         placeholder="hello"
-                        options={options}
+                        options={tagOptions}
                         onChange={handleTagsChange}
                     />
                 </label>
