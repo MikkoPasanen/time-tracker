@@ -13,6 +13,7 @@ export default function Settings() {
 
     return (
         <>
+            {/* TODO: Change sliders into real buttons before returning the project but change them back then */}
             <h1>Settings</h1>
             <div
                 className="settings-container"

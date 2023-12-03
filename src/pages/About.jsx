@@ -1,4 +1,6 @@
-import "../styles/about.css"
+// TODO: Fill out the information here before returning the project
+
+import "../styles/about.css";
 
 export default function About() {
     return (
@@ -33,7 +35,9 @@ export default function About() {
 
                 <div className="info-box">
                     <h2>OTHER</h2>
-                    <p>Other stuff like what was the hardest thing to implement</p>
+                    <p>
+                        Other stuff like what was the hardest thing to implement
+                    </p>
                 </div>
             </div>
         </>

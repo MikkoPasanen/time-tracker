@@ -1,5 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
+// TODO: Add bar chart option for each task
+// TODO: Add drag and drop functionality
+
 import "../styles/task.css";
 import { useState, useEffect } from "react";
 import { BiTrash } from "react-icons/bi";
@@ -79,6 +82,7 @@ export default function Task({
         // Find this spesific task
         const thisTask = tasks.find((task) => task.id === taskId);
 
+        // TODO: Also store the start / stop times of every interval
         // If multiple task tracking is active
         // Or active task amount is less than 1
         // Or this spesific task is active
@@ -228,6 +232,7 @@ export default function Task({
                 </button>
             </div>
 
+            {/* TODO: Add better way to manage tags inside the task itself (modify, remove, add)*/}
             <div className="task-content">
                 <div className="tags">
                     {tags.map((tag, index) => (

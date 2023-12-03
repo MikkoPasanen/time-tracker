@@ -1,35 +1,45 @@
 {
-    "tasks": [
-        {
-            "id": 1700825332148,
-            "name": "Code Apps",
-            "tags": ["important", "school", "money"],
-            "time": 689,
-            "startedTrackingAt": 1701431537,
-            "active": false
-        },
-        {
-            "id": 1700825568799,
-            "name": "Gym",
-            "tags": ["health"],
-            "time": 212,
-            "startedTrackingAt": 1701431545,
-            "active": false
-        },
-        {
-            "id": 1701203437723,
-            "name": "Play videogames",
-            "tags": [],
-            "time": 2,
-            "startedTrackingAt": 1701383215,
-            "active": false
-        }
-    ],
-    "all-tags": {
-        "allTags": ["important", "school", "health"]
+  "tasks": [
+    {
+      "id": 1700825332148,
+      "name": "Code Apps",
+      "tags": [
+        "important",
+        "school",
+        "money"
+      ],
+      "time": 692,
+      "startedTrackingAt": 1701646253,
+      "active": false
     },
-    "settings": {
-        "darktheme": true,
-        "multipletrack": true
+    {
+      "id": 1700825568799,
+      "name": "Gym",
+      "tags": [
+        "health"
+      ],
+      "time": 212,
+      "startedTrackingAt": 1701431545,
+      "active": false
+    },
+    {
+      "id": 1701203437723,
+      "name": "Play videogames",
+      "tags": [],
+      "time": 2,
+      "startedTrackingAt": 1701383215,
+      "active": false
     }
+  ],
+  "all-tags": {
+    "allTags": [
+      "important",
+      "school",
+      "health"
+    ]
+  },
+  "settings": {
+    "darktheme": true,
+    "multipletrack": true
+  }
 }

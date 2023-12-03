@@ -1,3 +1,8 @@
+// TODO: Make app more reposive
+// TODO: Check that colors pass the constract tests
+// TODO: Make sure everything is usable with keyboard only
+// TODO: Comment code
+
 /* eslint-disable react/no-unknown-property */
 import { useState, useEffect } from "react";
 import Task from "../components/Task";
@@ -32,8 +37,6 @@ export default function Home() {
 
         const res = await fetch(url);
         const tags = await res.json();
-        console.log(tags);
-        console.log(tags.all - tags);
         setAllTags(tags.allTags);
     };
 
@@ -59,6 +62,7 @@ export default function Home() {
         });
     };
 
+    // TODO: Remove tag(s) from all-tags array if they are unique to the deleted task only
     // When called, send DELETE request to db.json for deletion of spesific task
     const handleTaskDelete = async (taskId) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
@@ -87,6 +91,7 @@ export default function Home() {
     return (
         <div theme={darkMode ? "dark-theme" : "light-theme"}>
             <h1>Home</h1>
+            {/* TODO: Add sorting by tags */}
             <p>Create tasks and keep track of time for spesific tasks</p>
 
             <div className="headers">

@@ -32,6 +32,12 @@ export default function AddTask({
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Check that task doesn't have more than 3 tags
+        if (selectedTags.length > 3) {
+            console.log("Max 3 tags allowed / task");
+            return;
+        }
+
         const newTask = {
             id: generateId(),
             name: taskName,
@@ -97,6 +103,7 @@ export default function AddTask({
                 </label>
                 <label className="create-task-tags">
                     <p>Tags</p>
+                    {/* TODO: Style the tags selection menu*/}
                     <CreatableSelect
                         isMulti
                         placeholder="hello"
