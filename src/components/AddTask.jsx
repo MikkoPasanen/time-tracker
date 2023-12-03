@@ -1,36 +1,31 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { useState } from "react";
+import CreatableSelect from "react-select/creatable";
 import { BiX } from "react-icons/bi";
 import { useSettings } from "../components/SettingsContext";
 
-export default function AddTask({ onClose, onTaskAdd }) {
+export default function AddTask({ onClose, onTaskAdd, allTags }) {
     const { darkMode } = useSettings();
     const [taskName, setTaskName] = useState("");
-    const [tags, setTags] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
 
     const handleTaskNameChange = (e) => {
         setTaskName(e.target.value);
     };
 
-    const handleTagsChange = (e) => {
-        setTags(e.target.value);
+    const handleTagsChange = (selectedTag) => {
+        const tagsArr = [...selectedTag];
+        setSelectedTags(tagsArr);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let tagsArr = [];
-        if (typeof tags === "string") {
-            tagsArr = tags.split(",").map((tag) => tag.trim());
-        } else {
-            tagsArr = tags;
-        }
-
         const newTask = {
             id: generateId(),
             name: taskName,
-            tags: tagsArr,
+            tags: selectedTags,
             startedTrackingAt: null,
             time: 0,
             active: false,
@@ -41,6 +36,15 @@ export default function AddTask({ onClose, onTaskAdd }) {
         onTaskAdd(newTask);
         onClose();
     };
+
+    // Create an empty array to store the tags
+    let options = [];
+
+    for (let tag of allTags) {
+        options.push({ value: tag, label: tag });
+    }
+
+    console.log(options);
 
     const generateId = () => {
         return Date.now() + Math.floor(Math.random() * 10);
@@ -71,12 +75,11 @@ export default function AddTask({ onClose, onTaskAdd }) {
                 </label>
                 <label className="create-task-tags">
                     <p>Tags</p>
-                    <input
-                        className="create-task-tags-input"
-                        type="text"
-                        value={tags}
+                    <CreatableSelect
+                        isMulti
+                        placeholder="hello"
+                        options={options}
                         onChange={handleTagsChange}
-                        placeholder="Eg: pets, important"
                     />
                 </label>
                 <button type="submit" className="create-task-button">

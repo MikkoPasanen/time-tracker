@@ -14,6 +14,7 @@ export default function Home() {
     const [showPopup, setShowPopup] = useState(false);
     // Manage if data should be fetched again from db.json or not
     const [fetchData, setFetchData] = useState(false);
+    const [allTags, setAllTags] = useState([]);
 
     const { darkMode } = useSettings();
 
@@ -26,8 +27,17 @@ export default function Home() {
         setTasks(tasks);
     };
 
+    const fetchTags = async () => {
+        let url = "http://localhost:3010/all-tags";
+
+        const res = await fetch(url);
+        const tags = await res.json();
+        setAllTags(tags);
+    };
+
     useEffect(() => {
         fetchTasks();
+        fetchTags();
     }, [fetchData]);
 
     // When new task is created, send POST request to db.json
@@ -95,6 +105,7 @@ export default function Home() {
                 <AddTask
                     onClose={() => setShowPopup(false)}
                     onTaskAdd={handleTaskAdd}
+                    allTags={allTags}
                 />
             )}
         </div>
