@@ -19,8 +19,10 @@ export default function Home() {
     const [showPopup, setShowPopup] = useState(false);
     // Manage if data should be fetched again from db.json or not
     const [fetchData, setFetchData] = useState(false);
+    // Holds all tags
     const [allTags, setAllTags] = useState([]);
 
+    // custom hook from SettingsContext, manages the theme of the app
     const { darkMode } = useSettings();
 
     // When called, fetch all tasks from db.json
@@ -32,6 +34,7 @@ export default function Home() {
         setTasks(tasks);
     };
 
+    // Fetches all tags from db.json
     const fetchTags = async () => {
         let url = "http://localhost:3010/all-tags";
 
@@ -40,6 +43,7 @@ export default function Home() {
         setAllTags(tags.allTags);
     };
 
+    // If fetchData changes, call fetchTasks and fetchTags
     useEffect(() => {
         fetchTasks();
         fetchTags();
@@ -74,6 +78,7 @@ export default function Home() {
         setFetchData(!fetchData);
     };
 
+    // When called, sends PATCH request to db.json to update allTags
     const handleUpdateTags = async (newTags) => {
         let url = "http://localhost:3010/all-tags";
 

@@ -15,6 +15,7 @@ export default function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/about" element={<About />} />
+                    {/* This gets called if user goes into an unknown endpoint*/}
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </div>

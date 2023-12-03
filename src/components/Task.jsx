@@ -64,12 +64,6 @@ export default function Task({
                 name: taskName,
             }),
         });
-
-        const updatedTasks = tasks.map((task) =>
-            task.id === taskId ? { ...task, active: true } : task
-        );
-
-        updateTasks(updatedTasks);
     };
 
     // When called, handle the task time tracking logic
@@ -160,10 +154,13 @@ export default function Task({
         }
     };
 
+    // Renders if time tracking is active
     useEffect(() => {
         let interval;
 
+        // If task is currently tracking time
         if (trackingTime) {
+            // Add 1 second to the timer every second
             interval = setInterval(() => {
                 const currentTime = Math.floor(Date.now() / 1000);
                 const elapsedTime = currentTime - startedTrackingAt;
@@ -174,6 +171,7 @@ export default function Task({
             clearInterval(interval);
         }
 
+        // Cleanup function to clear interval
         return () => {
             clearInterval(interval);
         };
