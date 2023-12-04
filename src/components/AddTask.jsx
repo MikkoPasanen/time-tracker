@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { BiX } from "react-icons/bi";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import { useSettings } from "../components/SettingsContext";
 import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
@@ -18,17 +18,6 @@ export default function AddTask({
     const [taskName, setTaskName] = useState("");
     // Holds the tags for the new task
     const [selectedTags, setSelectedTags] = useState([]);
-    // Holds all unique tags that are displayed on the tags dropdown menu
-    const [tagOptions, setTagOptions] = useState([]);
-
-    // On initial render, generate the tag options
-    useEffect(() => {
-        generateOptions(allTags);
-    }, [allTags]);
-
-    const handleTaskNameChange = (e) => {
-        setTaskName(e.target.value);
-    };
 
     // Gets an array of tag option objects as a parameter
     // map them trough and store the selected tag values into new array and
@@ -81,16 +70,6 @@ export default function AddTask({
         onClose();
     };
 
-    // Generates the tag options for the dropdown menu
-    const generateOptions = (allTags) => {
-        let options = [];
-
-        for (let tag of allTags) {
-            options.push({ value: tag, label: tag });
-        }
-        setTagOptions(options);
-    };
-
     // Generates random ID
     const generateId = () => {
         return Date.now() + Math.floor(Math.random() * 10);
@@ -114,18 +93,20 @@ export default function AddTask({
                         className="create-task-name-input"
                         type="text"
                         value={taskName}
-                        onChange={handleTaskNameChange}
+                        onChange={(e) => setTaskName(e.target.value)}
                         required
                         placeholder="Enter task name"
                     />
                 </label>
                 <label className="create-task-tags">
                     <p>Tags</p>
-                    {/* TODO: Style the tags selection menu*/}
                     <CreatableSelect
                         isMulti
                         placeholder="Enter tags"
-                        options={tagOptions}
+                        options={allTags.map((tag) => ({
+                            value: tag,
+                            label: tag,
+                        }))}
                         onChange={handleTagsChange}
                         styles={darkMode ? darkThemeStyle : lightThemeStyle}
                     />

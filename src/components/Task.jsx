@@ -232,14 +232,6 @@ export default function Task({
 
             {/* TODO: Add better way to manage tags inside the task itself (modify, remove, add)*/}
             <div className="task-content">
-                <div className="tags">
-                    {tags.map((tag, index) => (
-                        <small key={index.toString()} className="tag">
-                            <BiXCircle className="remove-tag" />
-                            {tag}
-                        </small>
-                    ))}
-                </div>
                 <p className="task-time">{formatTime(taskTimeUI)}</p>
                 <button
                     className={`start-time-button ${
@@ -256,6 +248,14 @@ export default function Task({
                 <p className="start-time-text">
                     {trackingTime ? "Stop tracking" : "Start tracking"}
                 </p>
+                <div className="tags">
+                    {tags.map((tag, index) => (
+                        <small key={index.toString()} className="tag">
+                            <BiXCircle className="remove-tag" />
+                            {tag}
+                        </small>
+                    ))}
+                </div>
             </div>
         </div>
     );

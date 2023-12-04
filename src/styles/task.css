@@ -9,11 +9,6 @@
     color: var(--font-color);
 }
 
-.task-content {
-    display: flex;
-    flex-grow: 1;
-}
-
 .task-header {
     background-color: var(--fg-color);
     height: 40px;
@@ -49,7 +44,7 @@
 .tags {
     display: flex;
     gap: 1rem;
-    margin: 0.7rem;
+    margin: 0.5rem 0;
 }
 
 .tag {
@@ -74,12 +69,6 @@
     border: none;
 }
 
-.start-time-text {
-    margin: 0;
-    margin-bottom: 1rem;
-    padding: 0;
-}
-
 .tracking-active {
     color: #00f597;
 }
@@ -90,6 +79,10 @@
 
 .tracking-icon {
     font-size: 2.5rem;
+}
+
+.start-time-text {
+    margin: 0.3rem 0 0.7rem;
 }
 
 .name-input {
@@ -106,7 +99,7 @@
 
 .task-time {
     margin-bottom: 0.5rem;
-    margin-top: 0.3rem;
+    margin-top: 1rem;
 }
 
 .edit-task-name-x,

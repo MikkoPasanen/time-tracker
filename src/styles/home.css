@@ -21,3 +21,8 @@
     cursor: pointer;
 }
 
+.filter-create {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}

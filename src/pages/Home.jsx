@@ -14,7 +14,6 @@ import "../styles/home.css";
 import "../styles/addtask.css";
 import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
 
-
 export default function Home() {
     // Holds all tasks
     const [tasks, setTasks] = useState([]);
@@ -89,7 +88,7 @@ export default function Home() {
             for (const task of tasks) {
                 // If the task is not the deleted task
                 // and the task contains the current tag
-                // then store it 
+                // then store it
                 if (task.id !== taskId && task.tags.includes(tag)) {
                     return true;
                 }
@@ -98,19 +97,21 @@ export default function Home() {
         });
 
         // Tags that are unique only to the deleted task
-        const uniqueTags = tagsToDelete.filter((tag) => !remainingTags.includes(tag));
+        const uniqueTags = tagsToDelete.filter(
+            (tag) => !remainingTags.includes(tag)
+        );
 
         // If there are unique tags
-       if (uniqueTags.length > 0) {
-            // Filter out the deleted tags and update 
+        if (uniqueTags.length > 0) {
+            // Filter out the deleted tags and update
             // the allTags state with remaining tags
-            const updatedTags = allTags.filter((tag) => (
-                !uniqueTags.includes(tag)
-            ));
+            const updatedTags = allTags.filter(
+                (tag) => !uniqueTags.includes(tag)
+            );
 
             await handleUpdateTags(updatedTags);
-       }
-   
+        }
+
         await fetch(url, {
             method: "DELETE",
         });
@@ -133,38 +134,44 @@ export default function Home() {
         fetchTags();
     };
 
-    const filteredTasks = filterTags.length > 0
-        ?
-            tasks.filter((task) => filterTags.every((tag) => task.tag.includes(tag.value)))
-        :
-            tasks;
-
+    // Holds either filtered tasks or all tasks and these will be rendered on the screen
+    const filteredTasks =
+        // If there are selected tag filters
+        filterTags.length > 0
+            ? // Then check if any selected filter tags exists in the
+              // tasks tag array
+              tasks.filter((task) =>
+                  filterTags.some((tag) => task.tags.includes(tag.value))
+              )
+            : // In other case, show all tasks
+              tasks;
 
     return (
         <div theme={darkMode ? "dark-theme" : "light-theme"}>
             <h1>Home</h1>
-            {/* TODO: Add sorting by tags */}
             <p>Create tasks and keep track of time for spesific tasks</p>
-
             <div className="headers">
                 <h2>All tasks</h2>
-                <Select 
-                    options={allTags.map((tag) => ({value: tag, label: tag}))}
-                    isMulti
-                    value={filterTags}
-                    onChange={(selected) => setFilterTags(selected)}
-                    placeholder="Filter by tags"
-                    styles={darkMode ? darkThemeStyle : lightThemeStyle}
+                <div className="filter-create">
+                    <Select
+                        options={allTags.map((tag) => ({
+                            value: tag,
+                            label: tag,
+                        }))}
+                        isMulti
+                        value={filterTags}
+                        onChange={(selected) => setFilterTags(selected)}
+                        placeholder="Filter by tags"
+                        styles={darkMode ? darkThemeStyle : lightThemeStyle}
+                    ></Select>
+                    <button
+                        className="create-task"
+                        onClick={() => setShowPopup(true)}
                     >
-
-                </Select>
-                <button
-                    className="create-task"
-                    onClick={() => setShowPopup(true)}
-                >
-                    <BiPlusCircle />
-                    Create task
-                </button>
+                        <BiPlusCircle />
+                        Create task
+                    </button>
+                </div>
             </div>
 
             <div className="tasks-container">
