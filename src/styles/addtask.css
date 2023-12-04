@@ -3,7 +3,7 @@
 .create-task-popup {
     width: 500px;
     height: 350px;
-    margin:  auto;
+    margin: auto;
     z-index: 5;
     position: fixed;
     top: 40%;
@@ -65,7 +65,7 @@
     background-color: var(--filled-button-color);
     color: var(--filled-button-font);
     font-weight: 600;
-    padding: .5rem;
+    padding: 0.5rem;
     border-radius: 10px;
     height: 35px;
     border: 2px solid var(--border-color);

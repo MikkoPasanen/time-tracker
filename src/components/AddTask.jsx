@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import { BiX } from "react-icons/bi";
 import { useSettings } from "../components/SettingsContext";
+import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
 
 export default function AddTask({
     onClose,
@@ -115,7 +116,7 @@ export default function AddTask({
                         value={taskName}
                         onChange={handleTaskNameChange}
                         required
-                        placeholder="Eg: Feed the dog"
+                        placeholder="Enter task name"
                     />
                 </label>
                 <label className="create-task-tags">
@@ -123,9 +124,10 @@ export default function AddTask({
                     {/* TODO: Style the tags selection menu*/}
                     <CreatableSelect
                         isMulti
-                        placeholder="hello"
+                        placeholder="Enter tags"
                         options={tagOptions}
                         onChange={handleTagsChange}
+                        styles={darkMode ? darkThemeStyle : lightThemeStyle}
                     />
                 </label>
                 <button type="submit" className="create-task-button">
