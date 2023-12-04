@@ -66,11 +66,46 @@ export default function Home() {
         });
     };
 
-    // TODO: Remove tag(s) from all-tags array if they are unique to the deleted task only
-    // When called, send DELETE request to db.json for deletion of spesific task
+    // When called, send DELETE request to db.json
+    // for deletion of spesific task
+    // and possible tags
     const handleTaskDelete = async (taskId) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
 
+        // Find the task that is going to be deleted
+        const taskToDelete = tasks.find((task) => task.id === taskId);
+
+        // All tags that are on the soon to be deleted task
+        const tagsToDelete = taskToDelete.tags;
+
+        // Check if any other tasks contain the same tags as the deleted task
+        const remainingTags = allTags.filter((tag) => {
+            // Loop trough every task per existing tag
+            for (const task of tasks) {
+                // If the task is not the deleted task
+                // and the task contains the current tag
+                // then store it 
+                if (task.id !== taskId && task.tags.includes(tag)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        // Tags that are unique only to the deleted task
+        const uniqueTags = tagsToDelete.filter((tag) => !remainingTags.includes(tag));
+
+        // If there are unique tags
+       if (uniqueTags.length > 0) {
+            // Filter out the deleted tags and update 
+            // the allTags state with remaining tags
+            const updatedTags = allTags.filter((tag) => (
+                !uniqueTags.includes(tag)
+            ));
+
+            await handleUpdateTags(updatedTags);
+       }
+   
         await fetch(url, {
             method: "DELETE",
         });
