@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
+import { BiX } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
-import { BiX } from "react-icons/bi";
 import { useSettings } from "../components/SettingsContext";
 import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
 

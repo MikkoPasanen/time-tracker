@@ -9,8 +9,11 @@ import Task from "../components/Task";
 import { useSettings } from "../components/SettingsContext";
 import AddTask from "../components/AddTask";
 import { BiPlusCircle } from "react-icons/bi";
+import Select from "react-select";
 import "../styles/home.css";
 import "../styles/addtask.css";
+import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
+
 
 export default function Home() {
     // Holds all tasks
@@ -21,6 +24,8 @@ export default function Home() {
     const [fetchData, setFetchData] = useState(false);
     // Holds all tags
     const [allTags, setAllTags] = useState([]);
+
+    const [filterTags, setFilterTags] = useState([]);
 
     // custom hook from SettingsContext, manages the theme of the app
     const { darkMode } = useSettings();
@@ -128,6 +133,13 @@ export default function Home() {
         fetchTags();
     };
 
+    const filteredTasks = filterTags.length > 0
+        ?
+            tasks.filter((task) => filterTags.every((tag) => task.tag.includes(tag.value)))
+        :
+            tasks;
+
+
     return (
         <div theme={darkMode ? "dark-theme" : "light-theme"}>
             <h1>Home</h1>
@@ -136,6 +148,16 @@ export default function Home() {
 
             <div className="headers">
                 <h2>All tasks</h2>
+                <Select 
+                    options={allTags.map((tag) => ({value: tag, label: tag}))}
+                    isMulti
+                    value={filterTags}
+                    onChange={(selected) => setFilterTags(selected)}
+                    placeholder="Filter by tags"
+                    styles={darkMode ? darkThemeStyle : lightThemeStyle}
+                    >
+
+                </Select>
                 <button
                     className="create-task"
                     onClick={() => setShowPopup(true)}
@@ -146,7 +168,7 @@ export default function Home() {
             </div>
 
             <div className="tasks-container">
-                {tasks.map((task) => (
+                {filteredTasks.map((task) => (
                     <Task
                         key={task.id.toString()}
                         id={task.id}
