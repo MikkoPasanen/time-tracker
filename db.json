@@ -24,9 +24,11 @@
       "active": false
     },
     {
-      "id": 1701811748749,
-      "name": "Play videogames",
-      "tags": [],
+      "id": 1701814131347,
+      "name": "Fiber",
+      "tags": [
+        "money"
+      ],
       "startedTrackingAt": null,
       "time": 0,
       "active": false

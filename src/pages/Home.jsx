@@ -138,11 +138,22 @@ export default function Home() {
     const filteredTasks =
         // If there are selected tag filters
         filterTags.length > 0
-            ? // Then check if any selected filter tags exists in the
-              // tasks tag array
-              tasks.filter((task) =>
-                  filterTags.some((tag) => task.tags.includes(tag.value))
-              )
+            ? // Filter only tasks that matches by
+              // having the same amount of tags as
+              // in the filter options
+              // and each filter tag existst in this task
+              tasks.filter((task) => {
+                  if (filterTags.length !== task.tags.length) {
+                      // If tag lengths don't match, then skip this task
+                      return false;
+                  }
+                  // Check if all the filter tags match
+                  // this tasks tags
+                  // and returns true if they match
+                  return filterTags.every((tag) =>
+                      task.tags.includes(tag.value)
+                  );
+              })
             : // In other case, show all tasks
               tasks;
 
