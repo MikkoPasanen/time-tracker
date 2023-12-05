@@ -1,42 +1,43 @@
 {
   "tasks": [
     {
-      "id": 1700825332148,
-      "name": "Code Apps",
+      "id": 1701811719475,
+      "name": "Code apps",
       "tags": [
         "important",
-        "school",
-        "money"
+        "money",
+        "school"
       ],
-      "time": 747,
-      "startedTrackingAt": 1701730401,
+      "startedTrackingAt": null,
+      "time": 0,
       "active": false
     },
     {
-      "id": 1700825568799,
+      "id": 1701811731127,
       "name": "Gym",
       "tags": [
-        "health"
+        "health",
+        "important"
       ],
-      "time": 224,
-      "startedTrackingAt": 1701689120,
+      "startedTrackingAt": null,
+      "time": 0,
       "active": false
     },
     {
-      "id": 1701203437723,
+      "id": 1701811748749,
       "name": "Play videogames",
       "tags": [],
-      "time": 2,
-      "startedTrackingAt": 1701383215,
+      "startedTrackingAt": null,
+      "time": 0,
       "active": false
     }
   ],
   "all-tags": {
     "allTags": [
       "important",
+      "money",
       "school",
-      "health",
-      "money"
+      "health"
     ]
   },
   "settings": {

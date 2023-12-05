@@ -151,27 +151,24 @@ export default function Home() {
             <h1>Home</h1>
             <p>Create tasks and keep track of time for spesific tasks</p>
             <div className="headers">
-                <h2>All tasks</h2>
-                <div className="filter-create">
-                    <Select
-                        options={allTags.map((tag) => ({
-                            value: tag,
-                            label: tag,
-                        }))}
-                        isMulti
-                        value={filterTags}
-                        onChange={(selected) => setFilterTags(selected)}
-                        placeholder="Filter by tags"
-                        styles={darkMode ? darkThemeStyle : lightThemeStyle}
-                    ></Select>
-                    <button
-                        className="create-task"
-                        onClick={() => setShowPopup(true)}
-                    >
-                        <BiPlusCircle />
-                        Create task
-                    </button>
-                </div>
+                <Select
+                    options={allTags.map((tag) => ({
+                        value: tag,
+                        label: tag,
+                    }))}
+                    isMulti
+                    value={filterTags}
+                    onChange={(selected) => setFilterTags(selected)}
+                    placeholder="Filter by tags"
+                    styles={darkMode ? darkThemeStyle : lightThemeStyle}
+                ></Select>
+                <button
+                    className="create-task"
+                    onClick={() => setShowPopup(true)}
+                >
+                    <BiPlusCircle />
+                    Create task
+                </button>
             </div>
 
             <div className="tasks-container">

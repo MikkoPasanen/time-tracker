@@ -11,6 +11,7 @@ import { BiXCircle } from "react-icons/bi";
 import { BiStopCircle } from "react-icons/bi";
 import { BiPlayCircle } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
+import { BiPlusCircle } from "react-icons/bi";
 import { useSettings } from "./SettingsContext";
 
 export default function Task({
@@ -251,10 +252,20 @@ export default function Task({
                 <div className="tags">
                     {tags.map((tag, index) => (
                         <small key={index.toString()} className="tag">
-                            <BiXCircle className="remove-tag" />
+                            {/*TODO: Remove tags when deleted */}
+                            <button className="remove-tag">
+                                <BiXCircle className="remove-tag-icon" />
+                            </button>
                             {tag}
                         </small>
                     ))}
+                    {/*TODO: Create popup window for adding tags */}
+                    {tags.length < 3 && (
+                        <button className="add-tag">
+                            <BiPlusCircle />
+                            Add tag
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
