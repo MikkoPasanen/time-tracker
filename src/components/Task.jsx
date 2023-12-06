@@ -24,6 +24,7 @@ export default function Task({
     onDelete,
     tasks,
     updateTasks,
+    removeTag,
 }) {
     // This manages if the name change input field should be visible or not
     const [editMode, setEditMode] = useState(false);
@@ -41,14 +42,6 @@ export default function Task({
 
     // Custom hook from ThemeContext
     const { darkMode, multipleTrack } = useSettings();
-
-    const editNameChangeMode = () => {
-        setEditMode(!editMode);
-    };
-
-    const editTaskName = (e) => {
-        setTaskName(e.target.value);
-    };
 
     // When called, send PATCH request to the db.json to change the name
     const submitTaskName = async (taskId, taskName) => {
@@ -206,13 +199,13 @@ export default function Task({
                             className="name-input"
                             placeholder={taskName}
                             value={taskName}
-                            onChange={editTaskName}
+                            onChange={(e) => setTaskName(e.target.value)}
                         />
                     )}
                     {!editMode && (
                         <button
                             className="edit-task-name-pen"
-                            onClick={() => editNameChangeMode()}
+                            onClick={() => setEditMode(!editMode)}
                         >
                             <BiPencil />
                         </button>
@@ -253,7 +246,10 @@ export default function Task({
                     {tags.map((tag, index) => (
                         <small key={index.toString()} className="tag">
                             {/*TODO: Remove tags when deleted */}
-                            <button className="remove-tag">
+                            <button
+                                className="remove-tag"
+                                onClick={() => removeTag(id, index)}
+                            >
                                 <BiXCircle className="remove-tag-icon" />
                             </button>
                             {tag}

@@ -18,7 +18,7 @@ export default function Home() {
     // Holds all tasks
     const [tasks, setTasks] = useState([]);
     // Manage create task popup visibility
-    const [showPopup, setShowPopup] = useState(false);
+    const [createTaskPopup, setCreateTaskPopup] = useState(false);
     // Manage if data should be fetched again from db.json or not
     const [fetchData, setFetchData] = useState(false);
     // Holds all tags
@@ -109,7 +109,7 @@ export default function Home() {
                 (tag) => !uniqueTags.includes(tag)
             );
 
-            await handleUpdateTags(updatedTags);
+            await handleUpdateAllTags(updatedTags);
         }
 
         await fetch(url, {
@@ -119,8 +119,48 @@ export default function Home() {
         setFetchData(!fetchData);
     };
 
+    // When tags get removed from a single task, call this
+    const handleTaskTagsDelete = async (taskId, tagIndex) => {
+        let url = `http://localhost:3010/tasks/${taskId}`;
+
+        // Find the right task
+        const task = tasks.find((task) => task.id === taskId);
+
+        // Tasks tags
+        let taskTags = task.tags;
+
+        // Check if the tag that is being deleted
+        // is unique
+        const deletedTag = taskTags[tagIndex];
+        const isUnique = !tasks.some(
+            (task) => task.id !== taskId && task.tags.includes(deletedTag)
+        );
+
+        // If it is unique
+        if (isUnique) {
+            // New all tags array where the unique tag is gone
+            const updatedTags = allTags.filter((tag) => tag !== deletedTag);
+
+            await handleUpdateAllTags(updatedTags);
+        }
+
+        // New task tags array where the deleted tag is gone
+        taskTags.splice(tagIndex, 1);
+
+        // Update the tasks tags
+        await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({ tags: taskTags }),
+        });
+
+        setFetchData(!fetchData);
+    };
+
     // When called, sends PATCH request to db.json to update allTags
-    const handleUpdateTags = async (newTags) => {
+    const handleUpdateAllTags = async (newTags) => {
         let url = "http://localhost:3010/all-tags";
 
         await fetch(url, {
@@ -175,7 +215,7 @@ export default function Home() {
                 ></Select>
                 <button
                     className="create-task"
-                    onClick={() => setShowPopup(true)}
+                    onClick={() => setCreateTaskPopup(true)}
                 >
                     <BiPlusCircle />
                     Create task
@@ -195,16 +235,17 @@ export default function Home() {
                         onDelete={() => handleTaskDelete(task.id)}
                         tasks={tasks}
                         updateTasks={setTasks}
+                        removeTag={handleTaskTagsDelete}
                     />
                 ))}
             </div>
 
-            {showPopup && (
+            {createTaskPopup && (
                 <AddTask
-                    onClose={() => setShowPopup(false)}
+                    onClose={() => setCreateTaskPopup(false)}
                     onTaskAdd={handleTaskAdd}
                     allTags={allTags}
-                    updateAllTags={handleUpdateTags}
+                    updateAllTags={handleUpdateAllTags}
                 />
             )}
         </div>

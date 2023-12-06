@@ -1,49 +1,35 @@
 {
-  "tasks": [
-    {
-      "id": 1701811719475,
-      "name": "Code apps",
-      "tags": [
-        "important",
-        "money",
-        "school"
-      ],
-      "startedTrackingAt": null,
-      "time": 0,
-      "active": false
+    "tasks": [
+        {
+            "id": 1701811719475,
+            "name": "Code apps",
+            "tags": ["important", "school", "money"],
+            "startedTrackingAt": null,
+            "time": 0,
+            "active": false
+        },
+        {
+            "id": 1701811731127,
+            "name": "Gym",
+            "tags": ["health", "important"],
+            "startedTrackingAt": null,
+            "time": 0,
+            "active": false
+        },
+        {
+            "id": 1701814131347,
+            "name": "Fiber",
+            "tags": [],
+            "startedTrackingAt": null,
+            "time": 0,
+            "active": false
+        }
+    ],
+    "all-tags": {
+        "allTags": ["important", "money", "school", "health"]
     },
-    {
-      "id": 1701811731127,
-      "name": "Gym",
-      "tags": [
-        "health",
-        "important"
-      ],
-      "startedTrackingAt": null,
-      "time": 0,
-      "active": false
-    },
-    {
-      "id": 1701814131347,
-      "name": "Fiber",
-      "tags": [
-        "money"
-      ],
-      "startedTrackingAt": null,
-      "time": 0,
-      "active": false
+    "settings": {
+        "darktheme": true,
+        "multipletrack": true
     }
-  ],
-  "all-tags": {
-    "allTags": [
-      "important",
-      "money",
-      "school",
-      "health"
-    ]
-  },
-  "settings": {
-    "darktheme": true,
-    "multipletrack": true
-  }
 }
