@@ -13,6 +13,7 @@ import { BiPlayCircle } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
 import { BiPlusCircle } from "react-icons/bi";
 import { useSettings } from "./SettingsContext";
+import AddTags from "./AddTags";
 
 export default function Task({
     id,
@@ -25,11 +26,15 @@ export default function Task({
     tasks,
     updateTasks,
     removeTag,
+    allTags,
+    updateAllTags,
 }) {
     // This manages if the name change input field should be visible or not
     const [editMode, setEditMode] = useState(false);
     // This holds the tasks name
     const [taskName, setTaskName] = useState(name);
+    // This holds the tasks tags
+    const [taskTags, setTaskTags] = useState(tags);
     // This holds the tasks overall time in database
     const [taskTime, setTaskTime] = useState(time);
     // This holds the task overall time in UI
@@ -39,6 +44,9 @@ export default function Task({
     // This holds the time when the time tracking started
     const [startedTrackingAt, setStartedTrackingAt] =
         useState(startedTrackingTime);
+
+    // Manage add tags popup visibility
+    const [addTagsPopup, setAddTagsPopup] = useState(false);
 
     // Custom hook from ThemeContext
     const { darkMode, multipleTrack } = useSettings();
@@ -189,81 +197,162 @@ export default function Task({
         return `${hours}:${minutes}:${seconds}`;
     };
 
+    // Close the tags add popup
+    const addTagsPopupClose = async (selectedTags) => {
+        setAddTagsPopup(false);
+
+        // Copy of original task tags
+        let originalTags = taskTags;
+
+        // If there is modified tags
+        if (selectedTags !== undefined) {
+            let url = `http://localhost:3010/tasks/${id}`;
+
+            await fetch(url, {
+                method: "PATCH",
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    tags: selectedTags,
+                }),
+            });
+
+            // Check if there are any new tags
+            const tagsToUpdate = selectedTags.filter(
+                (tag) => !allTags.includes(tag)
+            );
+
+            // Check what tags got removed
+            const removedTags = originalTags.filter(
+                (tag) => !selectedTags.includes(tag)
+            );
+
+            // Check what removed tags were unique
+            const uniqueRemovedTags = removedTags.filter((tag) => {
+                const existsInOtherTasks = tasks.some(
+                    (task) => task.id !== id && task.tags.includes(tag)
+                );
+                return !existsInOtherTasks;
+            });
+
+            // If there was unique tags that got removed
+            // or there is brand new tags
+            if (uniqueRemovedTags.length > 0 || tagsToUpdate.length > 0) {
+                // Create new array for all tags
+                // that doesn't contain the removed unique tags
+                const newTags = allTags.filter(
+                    (tag) => !uniqueRemovedTags.includes(tag)
+                );
+
+                const newAllTags = [...newTags, ...tagsToUpdate];
+
+                // Call updateAllTags that will update all-tags
+                updateAllTags(newAllTags);
+            }
+
+            setTaskTags(selectedTags);
+        }
+    };
+
     return (
-        <div className="task" theme={darkMode ? "dark-theme" : "light-theme"}>
-            <div className="task-header">
-                <div className="task-name">
-                    {!editMode && <h3>{taskName}</h3>}
-                    {editMode && (
-                        <input
-                            className="name-input"
-                            placeholder={taskName}
-                            value={taskName}
-                            onChange={(e) => setTaskName(e.target.value)}
-                        />
-                    )}
-                    {!editMode && (
-                        <button
-                            className="edit-task-name-pen"
-                            onClick={() => setEditMode(!editMode)}
-                        >
-                            <BiPencil />
-                        </button>
-                    )}
-                    {editMode && (
-                        <button
-                            className="edit-task-name-x"
-                            onClick={() => submitTaskName(id, taskName)}
-                        >
-                            <BiX />
-                        </button>
-                    )}
+        <>
+            <div
+                className="task"
+                theme={darkMode ? "dark-theme" : "light-theme"}
+            >
+                <div className="task-header">
+                    <div className="task-name">
+                        {!editMode && <h3>{taskName}</h3>}
+                        {editMode && (
+                            <input
+                                className="name-input"
+                                placeholder={taskName}
+                                value={taskName}
+                                onChange={(e) => setTaskName(e.target.value)}
+                            />
+                        )}
+                        {!editMode && (
+                            <button
+                                className="edit-task-name-pen"
+                                onClick={() => setEditMode(!editMode)}
+                            >
+                                <BiPencil />
+                            </button>
+                        )}
+                        {editMode && (
+                            <button
+                                className="edit-task-name-x"
+                                onClick={() => submitTaskName(id, taskName)}
+                            >
+                                <BiX />
+                            </button>
+                        )}
+                    </div>
+                    <button
+                        onClick={() => onDelete(id)}
+                        className="delete-task"
+                    >
+                        <BiTrash />
+                    </button>
                 </div>
-                <button onClick={() => onDelete(id)} className="delete-task">
-                    <BiTrash />
-                </button>
+
+                <div className="task-content">
+                    <p className="task-time">{formatTime(taskTimeUI)}</p>
+                    <button
+                        className={`start-time-button ${
+                            trackingTime
+                                ? "tracking-inactive"
+                                : "tracking-active"
+                        }`}
+                        onClick={() => trackTime(id)}
+                    >
+                        {trackingTime ? (
+                            <BiStopCircle className="tracking-icon" />
+                        ) : (
+                            <BiPlayCircle className="tracking-icon" />
+                        )}
+                    </button>
+                    <p className="start-time-text">
+                        {trackingTime ? "Stop tracking" : "Start tracking"}
+                    </p>
+                    <div className="tags">
+                        {taskTags.map((tag, index) => (
+                            <small key={index.toString()} className="tag">
+                                <button
+                                    className="remove-tag"
+                                    onClick={() =>
+                                        removeTag(id, tag, setTaskTags)
+                                    }
+                                >
+                                    <BiXCircle className="remove-tag-icon" />
+                                </button>
+                                {tag}
+                            </small>
+                        ))}
+                        {taskTags.length < 3 && (
+                            <button
+                                onClick={() => setAddTagsPopup(true)}
+                                className="add-tag"
+                            >
+                                <BiPlusCircle />
+                                Add tag
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
 
-            {/* TODO: Add better way to manage tags inside the task itself (modify, remove, add)*/}
-            <div className="task-content">
-                <p className="task-time">{formatTime(taskTimeUI)}</p>
-                <button
-                    className={`start-time-button ${
-                        trackingTime ? "tracking-inactive" : "tracking-active"
-                    }`}
-                    onClick={() => trackTime(id)}
-                >
-                    {trackingTime ? (
-                        <BiStopCircle className="tracking-icon" />
-                    ) : (
-                        <BiPlayCircle className="tracking-icon" />
-                    )}
-                </button>
-                <p className="start-time-text">
-                    {trackingTime ? "Stop tracking" : "Start tracking"}
-                </p>
-                <div className="tags">
-                    {tags.map((tag, index) => (
-                        <small key={index.toString()} className="tag">
-                            {/*TODO: Remove tags when deleted */}
-                            <button
-                                className="remove-tag"
-                                onClick={() => removeTag(id, index)}
-                            >
-                                <BiXCircle className="remove-tag-icon" />
-                            </button>
-                            {tag}
-                        </small>
-                    ))}
-                    {/*TODO: Create popup window for adding tags */}
-                    {tags.length < 3 && (
-                        <button className="add-tag">
-                            <BiPlusCircle />
-                            Add tag
-                        </button>
-                    )}
-                </div>
-            </div>
-        </div>
+            {addTagsPopup && (
+                <AddTags
+                    onClose={addTagsPopupClose}
+                    tags={taskTags}
+                    allTags={allTags}
+                    taskName={name}
+                    updateTaskTags={setTaskTags}
+                />
+            )}
+        </>
     );
 }

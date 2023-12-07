@@ -24,6 +24,7 @@ export default function Home() {
     // Holds all tags
     const [allTags, setAllTags] = useState([]);
 
+    // Holds the filtering options
     const [filterTags, setFilterTags] = useState([]);
 
     // custom hook from SettingsContext, manages the theme of the app
@@ -120,7 +121,11 @@ export default function Home() {
     };
 
     // When tags get removed from a single task, call this
-    const handleTaskTagsDelete = async (taskId, tagIndex) => {
+    const handleTaskTagsDelete = async (
+        taskId,
+        tagToDeleteName,
+        updateTaskTags
+    ) => {
         let url = `http://localhost:3010/tasks/${taskId}`;
 
         // Find the right task
@@ -131,21 +136,23 @@ export default function Home() {
 
         // Check if the tag that is being deleted
         // is unique
-        const deletedTag = taskTags[tagIndex];
         const isUnique = !tasks.some(
-            (task) => task.id !== taskId && task.tags.includes(deletedTag)
+            (task) => task.id !== taskId && task.tags.includes(tagToDeleteName)
         );
 
         // If it is unique
         if (isUnique) {
             // New all tags array where the unique tag is gone
-            const updatedTags = allTags.filter((tag) => tag !== deletedTag);
+            const updatedTags = allTags.filter(
+                (tag) => tag !== tagToDeleteName
+            );
 
             await handleUpdateAllTags(updatedTags);
         }
 
         // New task tags array where the deleted tag is gone
-        taskTags.splice(tagIndex, 1);
+        taskTags = taskTags.filter((tag) => tag !== tagToDeleteName);
+        updateTaskTags(taskTags);
 
         // Update the tasks tags
         await fetch(url, {
@@ -229,6 +236,7 @@ export default function Home() {
                         id={task.id}
                         name={task.name}
                         tags={task.tags}
+                        allTags={allTags}
                         active={task.active}
                         time={task.time}
                         startedTrackingTime={task.startedTrackingAt}
@@ -236,6 +244,7 @@ export default function Home() {
                         tasks={tasks}
                         updateTasks={setTasks}
                         removeTag={handleTaskTagsDelete}
+                        updateAllTags={handleUpdateAllTags}
                     />
                 ))}
             </div>
