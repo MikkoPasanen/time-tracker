@@ -181,27 +181,15 @@ export default function Home() {
         fetchTags();
     };
 
-    // Holds either filtered tasks or all tasks and these will be rendered on the screen
+    // Shown tasks
     const filteredTasks =
-        // If there are selected tag filters
+        // If there are filters
         filterTags.length > 0
-            ? // Filter only tasks that matches by
-              // having the same amount of tags as
-              // in the filter options
-              // and each filter tag existst in this task
-              tasks.filter((task) => {
-                  if (filterTags.length !== task.tags.length) {
-                      // If tag lengths don't match, then skip this task
-                      return false;
-                  }
-                  // Check if all the filter tags match
-                  // this tasks tags
-                  // and returns true if they match
-                  return filterTags.every((tag) =>
-                      task.tags.includes(tag.value)
-                  );
-              })
-            : // In other case, show all tasks
+            ? // Take tasks that only have the selected filter tags in them
+              tasks.filter((task) =>
+                  filterTags.every((tag) => task.tags.includes(tag.value))
+              )
+            : // Otherways show all tasks (no filters)
               tasks;
 
     return (
