@@ -1,5 +1,5 @@
 // These styles are for the react select dropdown menu
-// both dark and light mode seperately
+// both dark and light mode separately
 
 const darkThemeStyle = {
     multiValue: (baseStyles) => ({

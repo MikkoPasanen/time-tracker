@@ -1,10 +1,19 @@
 @import "themes.css";
 
+.home-container {
+    margin: 1rem;
+}
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .headers {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem;
+    margin: 1.5rem 0;
 }
 
 .create-task {

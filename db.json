@@ -16,19 +16,22 @@
       "id": 1701897467679,
       "name": "Gym",
       "tags": [
-        "important",
-        "health"
+        "health",
+        "important"
       ],
-      "startedTrackingAt": null,
-      "time": 0,
+      "startedTrackingAt": 1702019301,
+      "time": 38,
       "active": false
     },
     {
-      "id": 1701898143741,
-      "name": "Play games",
-      "tags": [],
-      "startedTrackingAt": null,
-      "time": 0,
+      "id": 1702018737237,
+      "name": "Paper airplanes",
+      "tags": [
+        "important",
+        "money"
+      ],
+      "startedTrackingAt": 1702018896,
+      "time": 3,
       "active": false
     }
   ],

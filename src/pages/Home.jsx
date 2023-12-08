@@ -196,45 +196,48 @@ export default function Home() {
         <div theme={darkMode ? "dark-theme" : "light-theme"}>
             <h1>Home</h1>
             <p>Create tasks and keep track of time for spesific tasks</p>
-            <div className="headers">
-                <Select
-                    options={allTags.map((tag) => ({
-                        value: tag,
-                        label: tag,
-                    }))}
-                    isMulti
-                    value={filterTags}
-                    onChange={(selected) => setFilterTags(selected)}
-                    placeholder="Filter by tags"
-                    styles={darkMode ? darkThemeStyle : lightThemeStyle}
-                ></Select>
-                <button
-                    className="create-task"
-                    onClick={() => setCreateTaskPopup(true)}
-                >
-                    <BiPlusCircle />
-                    Create task
-                </button>
-            </div>
 
-            <div className="tasks-container">
-                {filteredTasks.map((task) => (
-                    <Task
-                        key={task.id.toString()}
-                        id={task.id}
-                        name={task.name}
-                        tags={task.tags}
-                        allTags={allTags}
-                        active={task.active}
-                        time={task.time}
-                        startedTrackingTime={task.startedTrackingAt}
-                        onDelete={() => handleTaskDelete(task.id)}
-                        tasks={tasks}
-                        updateTasks={setTasks}
-                        removeTag={handleTaskTagsDelete}
-                        updateAllTags={handleUpdateAllTags}
-                    />
-                ))}
+            <div className="home-container">
+                <div className="headers">
+                    <Select
+                        options={allTags.map((tag) => ({
+                            value: tag,
+                            label: tag,
+                        }))}
+                        isMulti
+                        value={filterTags}
+                        onChange={(selected) => setFilterTags(selected)}
+                        placeholder="Filter by tags"
+                        styles={darkMode ? darkThemeStyle : lightThemeStyle}
+                    ></Select>
+                    <button
+                        className="create-task"
+                        onClick={() => setCreateTaskPopup(true)}
+                    >
+                        <BiPlusCircle />
+                        Create task
+                    </button>
+                </div>
+
+                <div className="tasks-container">
+                    {filteredTasks.map((task) => (
+                        <Task
+                            key={task.id.toString()}
+                            id={task.id}
+                            name={task.name}
+                            tags={task.tags}
+                            allTags={allTags}
+                            active={task.active}
+                            time={task.time}
+                            startedTrackingTime={task.startedTrackingAt}
+                            onDelete={() => handleTaskDelete(task.id)}
+                            tasks={tasks}
+                            updateTasks={setTasks}
+                            removeTag={handleTaskTagsDelete}
+                            updateAllTags={handleUpdateAllTags}
+                        />
+                    ))}
+                </div>
             </div>
 
             {createTaskPopup && (

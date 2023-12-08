@@ -189,12 +189,11 @@ export default function Task({
         let minutes = Math.floor(seconds / 60);
         seconds %= 60;
 
-        // Add 0 infront of the numbers if they are under 10
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        return `${hours}:${minutes}:${seconds}`;
+        // Return the shown time and format it to be 00:00:00
+        return `
+        ${hours.toString().padStart(2, "0")}:${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     };
 
     // Close the tags add popup
