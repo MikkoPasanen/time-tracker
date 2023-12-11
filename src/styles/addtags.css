@@ -1,7 +1,7 @@
 @import "themes.css";
 
 .add-tags-popup {
-    width: 500px;
+    width: 450px;
     height: 240px;
     margin: auto;
     z-index: 5;
@@ -29,4 +29,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+@media only screen and (min-width: 700px) {
+
+   .add-tags-popup {
+    width: 550px;
+   }
 }
