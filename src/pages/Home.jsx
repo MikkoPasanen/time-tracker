@@ -10,6 +10,7 @@ import { useSettings } from "../components/SettingsContext";
 import AddTask from "../components/AddTask";
 import { BiPlusCircle } from "react-icons/bi";
 import Select from "react-select";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "../styles/home.css";
 import "../styles/addtask.css";
 import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
@@ -181,6 +182,28 @@ export default function Home() {
         fetchTags();
     };
 
+    const handleOnDragEnd = async (result) => {
+        if (!result.destination) {
+            return;
+        }
+
+        let url = "http://localhost:3010";
+
+        const reorderTasks = Array.from(filteredTasks);
+        const [removed] = reorderTasks.splice(result.source.index, 1);
+        reorderTasks.splice(result.destination.index, 0, removed);
+
+        await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({ tasks: reorderTasks }),
+        });
+
+        setTasks(reorderTasks);
+    }
+
     // Shown tasks
     const filteredTasks =
         // If there are filters
@@ -194,52 +217,68 @@ export default function Home() {
 
     return (
         <div theme={darkMode ? "dark-theme" : "light-theme"}>
-            <h1>Home</h1>
-            <p>Create tasks and keep track of time for spesific tasks</p>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+                <h1>Home</h1>
+                <p>Create tasks and keep track of time for spesific tasks</p>
 
-            <div className="home-container">
-                <div className="headers">
-                    <Select
-                        options={allTags.map((tag) => ({
-                            value: tag,
-                            label: tag,
-                        }))}
-                        isMulti
-                        value={filterTags}
-                        onChange={(selected) => setFilterTags(selected)}
-                        placeholder="Filter by tags"
-                        styles={darkMode ? darkThemeStyle : lightThemeStyle}
-                    ></Select>
-                    <button
-                        className="create-task"
-                        onClick={() => setCreateTaskPopup(true)}
-                    >
-                        <BiPlusCircle />
-                        Create task
-                    </button>
-                </div>
+                <div className="home-container">
+                    <div className="headers">
+                        <Select
+                            options={allTags.map((tag) => ({
+                                value: tag,
+                                label: tag,
+                            }))}
+                            isMulti
+                            value={filterTags}
+                            onChange={(selected) => setFilterTags(selected)}
+                            placeholder="Filter by tags"
+                            styles={darkMode ? darkThemeStyle : lightThemeStyle}
+                        ></Select>
+                        <button
+                            className="create-task"
+                            onClick={() => setCreateTaskPopup(true)}
+                        >
+                            <BiPlusCircle />
+                            Create task
+                        </button>
+                    </div>
 
-                <div className="tasks-container">
-                    {filteredTasks.map((task) => (
-                        <Task
-                            key={task.id.toString()}
-                            id={task.id}
-                            name={task.name}
-                            tags={task.tags}
-                            allTags={allTags}
-                            active={task.active}
-                            time={task.time}
-                            startedTrackingTime={task.startedTrackingAt}
-                            onDelete={() => handleTaskDelete(task.id)}
-                            tasks={tasks}
-                            updateTasks={setTasks}
-                            removeTag={handleTaskTagsDelete}
-                            updateAllTags={handleUpdateAllTags}
-                            fetchData={() => setFetchData(!fetchData)}
-                        />
-                    ))}
+                <Droppable droppableId="droppable-area" key="droppable-area">
+                    {
+                        (provided) => {
+                            return (
+                                <div 
+                                    className="tasks-container"
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    >
+                                    {filteredTasks.map((task, index) => (
+                                        <Task
+                                            key={task.id.toString()}
+                                            id={task.id}
+                                            index={index}
+                                            name={task.name}
+                                            tags={task.tags}
+                                            allTags={allTags}
+                                            active={task.active}
+                                            time={task.time}
+                                            startedTrackingTime={task.startedTrackingAt}
+                                            onDelete={() => handleTaskDelete(task.id)}
+                                            tasks={tasks}
+                                            updateTasks={setTasks}
+                                            removeTag={handleTaskTagsDelete}
+                                            updateAllTags={handleUpdateAllTags}
+                                            fetchData={() => setFetchData(!fetchData)}
+                                        />
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            );
+                        }
+                    }
+                    </Droppable>
                 </div>
-            </div>
+            </DragDropContext>
 
             {createTaskPopup && (
                 <AddTask

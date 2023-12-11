@@ -7,11 +7,9 @@ import "./styles/styles.css";
 
 const Main = () => {
     return (
-        <React.StrictMode>
-            <SettingsProvider>
-                <App />
-            </SettingsProvider>
-        </React.StrictMode>
+        <SettingsProvider>
+            <App />
+        </SettingsProvider>
     );
 };
 
