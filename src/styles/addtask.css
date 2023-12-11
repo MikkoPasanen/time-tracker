@@ -1,7 +1,7 @@
 @import "themes.css";
 
 .create-task-popup {
-    width: 500px;
+    width: 450px;
     height: 350px;
     margin: auto;
     z-index: 5;
@@ -70,4 +70,12 @@
     height: 35px;
     border: 2px solid var(--border-color);
     cursor: pointer;
+}
+
+
+@media only screen and (min-width: 700px) {
+
+  .create-task-popup {
+    width: 550px;
+  }
 }
