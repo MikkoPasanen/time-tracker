@@ -8,31 +8,132 @@
     align-items: center;
     gap: 1rem;
     border-bottom: 2px solid var(--border-color);
+    padding: 35px;
 }
 
-.navbar ul {
-    padding: 0;
-    margin: 0;
+.normal-navbar {
+    display: none;
+}
+
+.hamburger-navbar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: inline-block;
+}
+
+.menu-btn {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.menu-btn:hover .line {
+    background-color: var(--filled-button-color);
+}
+
+.line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    margin-bottom: 10px;
+    background-color: var(--font-color);
+    transition: all 0.3s ease-in-out;
+    z-index: 999;
+
+}
+
+.hamburger-content {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-height: 55vh;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    color: var(--font-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    z-index: 200;
+}
+
+ul {
     list-style: none;
-    display: flex;
-}
-
-.navbar li {
-    padding: 1rem;
-}
-
-.navbar a {
-    color: inherit;
+    margin: 0;
+    padding: 0;
     text-decoration: none;
+}
+
+.hamburger-navbar li {
+    margin: 0;
+    padding: 10px 0;
+}
+
+a {
+    cursor: pointer;
+    color: var(--font-color);
     font-size: 23px;
 }
 
-@media only screen and (min-width: 650px) {
-    .navbar ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
+.hamburger-content li:last-child {
+    border-bottom: none;
+}
+
+.menu-btn.active .line:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+}
+
+.menu-btn.active .line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-btn.active .line:nth-child(3) {
+    transform: translateY(-13px) rotate(-45deg);
+}
+
+.menu-btn.active + .hamburger-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media only screen and (min-width: 700px) {
+
+    .menu-btn {
+        display: none;
+    }
+
+    .hamburger-content {
+        display: none;
+    }
+
+    .normal-navbar {
+        display: block;
+    }
+
+    ul {
         display: flex;
-        gap: 4rem;
+        align-items: center;
+        gap: 5rem;
+    }
+
+    .navbar {
+        padding: 20px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+
+    ul {
+        gap: 7rem;
     }
 }
