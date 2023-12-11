@@ -25,7 +25,11 @@ export default function About() {
 
                 <div className="info-box">
                     <h2>COPYRIGHTS</h2>
+                    <p>Other than icons and react-select dropdown menus, everything is made by me.</p>
                     <a href="https://github.com/atisawd/boxicons">Icons</a>
+                    <br />
+                    <br />
+                    <a href="https://react-select.com/home">React Select</a>
                 </div>
 
                 <div className="info-box">
