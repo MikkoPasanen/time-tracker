@@ -1,8 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable react/prop-types */
-// TODO: Add bar chart option for each task
-// TODO: Add drag and drop functionality
-
 import "../styles/task.css";
 import { useState, useEffect } from "react";
 import { BiTrash, BiPencil, BiXCircle, BiStopCircle, BiPlayCircle, BiX, BiPlusCircle } from "react-icons/bi";

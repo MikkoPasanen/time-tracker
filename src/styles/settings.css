@@ -16,7 +16,7 @@
     border: 2px solid var(--border-color);
     width: 450px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .toggle-theme-content,

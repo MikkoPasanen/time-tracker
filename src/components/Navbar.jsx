@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
 import { useSettings } from "../components/SettingsContext";

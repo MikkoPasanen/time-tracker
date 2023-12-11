@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unknown-property */
 import { BiX } from "react-icons/bi";
 import CreatableSelect from "react-select/creatable";
 import { useSettings } from "../components/SettingsContext";

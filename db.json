@@ -14,26 +14,24 @@
         "active": false
       },
       {
-        "id": 1702018737237,
-        "name": "Make paper airplanes",
-        "tags": [
-          "important",
-          "fun"
-        ],
-        "startedTrackingAt": 1702314411,
-        "time": 43,
-        "active": false
-      },
-      {
         "id": 1701897467679,
         "name": "Gym",
         "tags": [
           "health",
-          "important",
-          "money"
+          "important"
         ],
         "startedTrackingAt": 1702311656,
         "time": 45,
+        "active": false
+      },
+      {
+        "id": 1702315136434,
+        "name": "Make paper airplanes",
+        "tags": [
+          "fun"
+        ],
+        "startedTrackingAt": null,
+        "time": 0,
         "active": false
       }
     ]

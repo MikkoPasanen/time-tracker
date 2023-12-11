@@ -1,9 +1,3 @@
-// TODO: Make app more reposive
-// TODO: Check that colors pass the constract tests
-// TODO: Make sure everything is usable with keyboard only
-// TODO: Comment code
-
-/* eslint-disable react/no-unknown-property */
 import { useState, useEffect } from "react";
 import Task from "../components/Task";
 import { useSettings } from "../components/SettingsContext";

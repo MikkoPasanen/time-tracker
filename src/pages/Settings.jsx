@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import "../styles/slider.css";
 import "../styles/settings.css";
 import { BiSolidMoon } from "react-icons/bi";
@@ -13,7 +12,6 @@ export default function Settings() {
 
     return (
         <>
-            {/* TODO: Change sliders into real buttons before returning the project but change them back then */}
             <h1>Settings</h1>
             <div
                 className="settings-container"
@@ -25,10 +23,7 @@ export default function Settings() {
                     <div className="toggle-theme-content">
                         <BiSolidMoon className="settings-icon" />
                         <label className="switch">
-                            <input
-                                type="checkbox"
-                                onChange={() => toggleTheme()}
-                            />
+                            <button onClick={() => toggleTheme()}/>
                             <span
                                 className={
                                     darkMode ? "dark-slider" : "light-slider"
@@ -46,10 +41,7 @@ export default function Settings() {
                     <div className="toggle-tracking-mode-content">
                         <BiDice5 className="settings-icon" />
                         <label className="switch">
-                            <input
-                                type="checkbox"
-                                onChange={() => toggleTrackingMode()}
-                            />
+                            <button onClick={() => toggleTrackingMode()}/>
                             <span
                                 className={
                                     multipleTrack
