@@ -37,7 +37,7 @@ export default function Home() {
 
         const res = await fetch(url);
         const tasks = await res.json();
-        setTasks(tasks);
+        setTasks(tasks.tasks);
     };
 
     // Fetches all tags from db.json
@@ -55,28 +55,30 @@ export default function Home() {
         fetchTags();
     }, [fetchData]);
 
-    // When new task is created, send POST request to db.json
+    // When new task is created
     const handleTaskAdd = async (newTask) => {
         let url = "http://localhost:3010/tasks";
 
         // Add the new task into a state so it gets updated in the UI
         setTasks([...tasks, newTask]);
 
+        const updatedTasks = [...tasks, newTask];
+
         await fetch(url, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newTask),
+            body: JSON.stringify({tasks: updatedTasks}),
         });
     };
 
-    // When called, send DELETE request to db.json
+    // When called, send PUT request to db.json
     // for deletion of spesific task
     // and possible tags
     const handleTaskDelete = async (taskId) => {
-        let url = `http://localhost:3010/tasks/${taskId}`;
+        let url = `http://localhost:3010/tasks`;
 
         // Find the task that is going to be deleted
         const taskToDelete = tasks.find((task) => task.id === taskId);
@@ -114,8 +116,14 @@ export default function Home() {
             await handleUpdateAllTags(updatedTags);
         }
 
+        const updatedTasks = tasks.filter((task) => task.id !== taskId);
+
         await fetch(url, {
-            method: "DELETE",
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({ tasks: updatedTasks }),
         });
 
         setFetchData(!fetchData);
@@ -127,10 +135,13 @@ export default function Home() {
         tagToDeleteName,
         updateTaskTags
     ) => {
-        let url = `http://localhost:3010/tasks/${taskId}`;
+        let url = `http://localhost:3010/tasks`;
+
+        const updatedTasks = [...tasks];
 
         // Find the right task
-        const task = tasks.find((task) => task.id === taskId);
+        const taskIndex = updatedTasks.findIndex((task) => task.id === taskId);
+        const task = updatedTasks[taskIndex];
 
         // Tasks tags
         let taskTags = task.tags;
@@ -153,15 +164,17 @@ export default function Home() {
 
         // New task tags array where the deleted tag is gone
         taskTags = taskTags.filter((tag) => tag !== tagToDeleteName);
+        task.tags = taskTags;
+        updatedTasks[taskIndex] = task;
         updateTaskTags(taskTags);
 
         // Update the tasks tags
         await fetch(url, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
-            body: JSON.stringify({ tags: taskTags }),
+            body: JSON.stringify({ tasks: updatedTasks }),
         });
 
         setFetchData(!fetchData);
@@ -172,7 +185,7 @@ export default function Home() {
         let url = "http://localhost:3010/all-tags";
 
         await fetch(url, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
@@ -187,21 +200,21 @@ export default function Home() {
             return;
         }
 
-        let url = "http://localhost:3010";
+        let url = "http://localhost:3010/tasks";
 
         const reorderTasks = Array.from(filteredTasks);
         const [removed] = reorderTasks.splice(result.source.index, 1);
         reorderTasks.splice(result.destination.index, 0, removed);
 
+        setTasks(reorderTasks);
+
         await fetch(url, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify({ tasks: reorderTasks }),
         });
-
-        setTasks(reorderTasks);
     }
 
     // Shown tasks

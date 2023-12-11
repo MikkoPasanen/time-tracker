@@ -48,32 +48,47 @@ export default function Task({
     // Custom hook from ThemeContext
     const { darkMode, multipleTrack } = useSettings();
 
-    // When called, send PATCH request to the db.json to change the name
+    // When called, send PUT request to the db.json to change the name
     const submitTaskName = async (taskId, taskName) => {
         setEditMode(!editMode);
-        let url = `http://localhost:3010/tasks/${taskId}`;
+        let url = `http://localhost:3010/tasks`;
+
+        // Copy of all tasks
+        const updatedTasks = [...tasks];
+
+        // Find this task
+        const taskIndex = updatedTasks.findIndex((task) => task.id === taskId);
+        const thisTask = updatedTasks[taskIndex];
+        
+        thisTask.name = taskName;
+
+        updatedTasks[taskIndex] = thisTask;
 
         await fetch(url, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
             },
-            body: JSON.stringify({
-                name: taskName,
-            }),
+            body: JSON.stringify({ tasks: updatedTasks}),
         });
     };
 
     // When called, handle the task time tracking logic
     const trackTime = async (taskId) => {
-        let url = `http://localhost:3010/tasks/${taskId}`;
+        let url = `http://localhost:3010/tasks/`;
 
         // Find all the tasks that are active right now
         const activeTasks = tasks.filter((task) => task.active === true);
 
-        // Find this spesific task
-        const thisTask = tasks.find((task) => task.id === taskId);
+        // Find this spesific tasks index
+        const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+        // Create copy of the tasks array
+        const updatedTasks = [...tasks];
+
+        // Fidn this spesific task
+        const thisTask = updatedTasks[taskIndex];
 
         // If multiple task tracking is active
         // Or active task amount is less than 1
@@ -96,18 +111,20 @@ export default function Task({
                 // Store the start of the tracking time as seconds
                 const time = Math.floor(Date.now() / 1000);
 
-                // Send PATCH request to db.json
+                thisTask.active = true;
+                thisTask.startedTrackingAt = time;
+
+                updatedTasks[taskIndex] = thisTask;
+
+                // Send PUT request to db.json
                 // Change tasks tracking start time and active status
                 await fetch(url, {
-                    method: "PATCH",
+                    method: "PUT",
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
                     },
-                    body: JSON.stringify({
-                        startedTrackingAt: time,
-                        active: true,
-                    }),
+                    body: JSON.stringify({ tasks: updatedTasks}),
                 });
 
                 // Store the start of the tracking time into a state
@@ -132,18 +149,20 @@ export default function Task({
                 const newTime = taskTime + timeSubstraction;
                 setTaskTime(newTime);
 
-                // Send PATCH request to db.json
+                thisTask.active = false;
+                thisTask.time = newTime;
+
+                updatedTasks[taskIndex] = thisTask;
+
+                // Send PUT request to db.json
                 // Change tasks overall tracked time and active status
                 await fetch(url, {
-                    method: "PATCH",
+                    method: "PUT",
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
                     },
-                    body: JSON.stringify({
-                        time: newTime,
-                        active: false,
-                    }),
+                    body: JSON.stringify({ tasks: updatedTasks }),
                 });
 
                 // Change tracking mode
@@ -199,19 +218,29 @@ export default function Task({
         // Copy of original task tags
         let originalTags = taskTags;
 
+        // Copy of tasks
+        let updatedTasks = [...tasks];
+
+        // Find index of this task
+        const taskIndex = updatedTasks.findIndex((task) => task.id === id);
+
+        // Find this task
+        const thisTask = updatedTasks[taskIndex];
+
         // If there is modified tags
         if (selectedTags !== undefined) {
-            let url = `http://localhost:3010/tasks/${id}`;
+            let url = `http://localhost:3010/tasks`;
+
+            thisTask.tags = selectedTags;
+            updatedTasks[taskIndex] = thisTask;
 
             await fetch(url, {
-                method: "PATCH",
+                method: "PUT",
                 headers: {
                     Accept: "application/json",
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify({
-                    tags: selectedTags,
-                }),
+                body: JSON.stringify({ tasks: updatedTasks }),
             });
 
             // Check if there are any new tags
