@@ -235,6 +235,7 @@ export default function Home() {
                             updateTasks={setTasks}
                             removeTag={handleTaskTagsDelete}
                             updateAllTags={handleUpdateAllTags}
+                            fetchData={() => setFetchData(!fetchData)}
                         />
                     ))}
                 </div>

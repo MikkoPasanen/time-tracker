@@ -28,6 +28,7 @@ export default function Task({
     removeTag,
     allTags,
     updateAllTags,
+    fetchData
 }) {
     // This manages if the name change input field should be visible or not
     const [editMode, setEditMode] = useState(false);
@@ -251,6 +252,7 @@ export default function Task({
             }
 
             setTaskTags(selectedTags);
+            fetchData();
         }
     };
 

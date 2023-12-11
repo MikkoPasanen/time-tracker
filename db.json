@@ -25,10 +25,9 @@
     },
     {
       "id": 1702018737237,
-      "name": "Paper airplanes",
+      "name": "Make paper airplanes",
       "tags": [
-        "important",
-        "money"
+        "fun"
       ],
       "startedTrackingAt": 1702018896,
       "time": 3,
@@ -40,7 +39,8 @@
       "school",
       "important",
       "money",
-      "health"
+      "health",
+      "fun"
     ]
   },
   "settings": {
