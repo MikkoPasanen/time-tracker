@@ -3,6 +3,7 @@
 .home-container {
     margin: 1rem;
 }
+
 .tasks-container {
     display: flex;
     flex-direction: column;
@@ -34,4 +35,16 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
+
+@media only screen and (min-width: 1200px) {
+    .home-container {
+        margin: 0 10rem;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .home-container {
+        margin: 0 30rem;
+    }
 }
