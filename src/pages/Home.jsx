@@ -193,24 +193,24 @@ export default function Home() {
         if (!result.destination) {
             return;
         }
-
+    
+        const reorderedTasks = Array.from(tasks);
+        const [removed] = reorderedTasks.splice(result.source.index, 1);
+        reorderedTasks.splice(result.destination.index, 0, removed);
+    
+        setTasks(reorderedTasks);
+    
         let url = "http://localhost:3010/tasks";
-
-        const reorderTasks = Array.from(filteredTasks);
-        const [removed] = reorderTasks.splice(result.source.index, 1);
-        reorderTasks.splice(result.destination.index, 0, removed);
-
-        setTasks(reorderTasks);
-
+    
         await fetch(url, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
-            body: JSON.stringify({ tasks: reorderTasks }),
+            body: JSON.stringify({ tasks: reorderedTasks }),
         });
-    }
-
+    };
+    
     // Shown tasks
     const filteredTasks =
         // If there are filters
