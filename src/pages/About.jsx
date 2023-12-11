@@ -17,6 +17,8 @@ export default function About() {
                     <p>Create task by pressing the "Create task" button and fill out the tasks info.</p>
                     <p>Start tracking time by pressing the green start tracking button and stop tracking time vice versa.</p>
                     <p>Modify tasks tags by either deleting them or changing them from the "Add tag" button if there is less than 3 tags in a task.</p>
+                    <p>When modifying tags, you can also create your own tags by typing into the input field and pressing create *tag name*.</p>
+                    <p>You can also select from existing tags by pressing the downwards arrow on the input field.</p>
                     <p>Filter tasks based on tags from the dropdown menu.</p>
                     <p>Change tasks name by pressing the pen next to the tasks name and then save the name by pressing the x.</p>
                     <p>Toggles for light / dark mode and track multiple tasks / 1 task can be found on the settings page</p>

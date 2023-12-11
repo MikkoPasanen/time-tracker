@@ -9,8 +9,8 @@
           "money",
           "school"
         ],
-        "startedTrackingAt": 1702307529,
-        "time": 15608,
+        "startedTrackingAt": 1702320295,
+        "time": 15610,
         "active": false
       },
       {
@@ -20,8 +20,8 @@
           "health",
           "important"
         ],
-        "startedTrackingAt": 1702311656,
-        "time": 45,
+        "startedTrackingAt": 1702320240,
+        "time": 50,
         "active": false
       },
       {
@@ -48,6 +48,6 @@
   },
   "settings": {
     "darktheme": true,
-    "multipletrack": true
+    "multipletrack": false
   }
 }
