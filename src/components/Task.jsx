@@ -78,7 +78,6 @@ export default function Task({
         // Find this spesific task
         const thisTask = tasks.find((task) => task.id === taskId);
 
-        // TODO: Also store the start / stop times of every interval
         // If multiple task tracking is active
         // Or active task amount is less than 1
         // Or this spesific task is active
