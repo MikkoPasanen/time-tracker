@@ -29,6 +29,12 @@ npm run all
 ```
 This will start the site at http://localhost:5173 and also the json-server
 
+## Screenshots
+
+<img src="./pics/homepage.PNG" alt="Homepage" width="700">
+<img src="./pics/createtask.PNG" alt="Create task" width="500">
+<img src="./pics/settings.PNG" alt="Settings" width="600">
+
 ## Author
 
 Mikko Pasanen <mikko.pasanen@tuni.fi>
