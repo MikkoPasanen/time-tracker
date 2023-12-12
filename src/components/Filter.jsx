@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import { useSettings } from "../components/SettingsContext";
 import { darkThemeStyle, lightThemeStyle } from "../styles/multiselectstyles";
 
-export default function Filter({allTags, filterByTags}) {
-    const {darkMode} = useSettings(); 
+export default function Filter({ allTags, filterByTags }) {
+    const { darkMode } = useSettings();
     const [filterOptions, setFilterOptions] = useState([]);
 
     useEffect(() => {
         generateFilterOptions(allTags);
-    }, [allTags])
+    }, [allTags]);
 
     const handleFilterChange = (selectedTags) => {
         const filterArr = selectedTags.map((option) => option.value);

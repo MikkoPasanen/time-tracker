@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable react/prop-types */
 import { BiX } from "react-icons/bi";
 import { useState } from "react";
 import CreatableSelect from "react-select/creatable";

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { useState, useEffect } from "react";
 import Task from "../components/Task";
 import { useSettings } from "../components/SettingsContext";
@@ -64,7 +65,7 @@ export default function Home() {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({tasks: updatedTasks}),
+            body: JSON.stringify({ tasks: updatedTasks }),
         });
     };
 
@@ -193,15 +194,15 @@ export default function Home() {
         if (!result.destination) {
             return;
         }
-    
+
         const reorderedTasks = Array.from(tasks);
         const [removed] = reorderedTasks.splice(result.source.index, 1);
         reorderedTasks.splice(result.destination.index, 0, removed);
-    
+
         setTasks(reorderedTasks);
-    
+
         let url = "http://localhost:3010/tasks";
-    
+
         await fetch(url, {
             method: "PUT",
             headers: {
@@ -210,7 +211,7 @@ export default function Home() {
             body: JSON.stringify({ tasks: reorderedTasks }),
         });
     };
-    
+
     // Shown tasks
     const filteredTasks =
         // If there are filters
@@ -250,15 +251,17 @@ export default function Home() {
                         </button>
                     </div>
 
-                <Droppable droppableId="droppable-area" key="droppable-area">
-                    {
-                        (provided) => {
+                    <Droppable
+                        droppableId="droppable-area"
+                        key="droppable-area"
+                    >
+                        {(provided) => {
                             return (
-                                <div 
+                                <div
                                     className="tasks-container"
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    >
+                                >
                                     {filteredTasks.map((task, index) => (
                                         <Task
                                             key={task.id.toString()}
@@ -269,20 +272,25 @@ export default function Home() {
                                             allTags={allTags}
                                             active={task.active}
                                             time={task.time}
-                                            startedTrackingTime={task.startedTrackingAt}
-                                            onDelete={() => handleTaskDelete(task.id)}
+                                            startedTrackingTime={
+                                                task.startedTrackingAt
+                                            }
+                                            onDelete={() =>
+                                                handleTaskDelete(task.id)
+                                            }
                                             tasks={tasks}
                                             updateTasks={setTasks}
                                             removeTag={handleTaskTagsDelete}
                                             updateAllTags={handleUpdateAllTags}
-                                            fetchData={() => setFetchData(!fetchData)}
+                                            fetchData={() =>
+                                                setFetchData(!fetchData)
+                                            }
                                         />
                                     ))}
                                     {provided.placeholder}
                                 </div>
                             );
-                        }
-                    }
+                        }}
                     </Droppable>
                 </div>
             </DragDropContext>

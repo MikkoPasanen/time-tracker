@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
 import { useSettings } from "../components/SettingsContext";
@@ -44,7 +45,10 @@ export default function Navbar() {
             </div>
 
             <div className="hamburger-navbar">
-                <button className={activeMenu ? "menu-btn active" : "menu-btn"} onClick={() => setActiveMenu(!activeMenu)}>
+                <button
+                    className={activeMenu ? "menu-btn active" : "menu-btn"}
+                    onClick={() => setActiveMenu(!activeMenu)}
+                >
                     <span className="line"></span>
                     <span className="line"></span>
                     <span className="line"></span>
@@ -55,7 +59,9 @@ export default function Navbar() {
                             <NavLink
                                 to="/"
                                 style={({ isActive }) => ({
-                                    textDecoration: isActive ? "underline" : "none",
+                                    textDecoration: isActive
+                                        ? "underline"
+                                        : "none",
                                 })}
                             >
                                 Home
@@ -65,7 +71,9 @@ export default function Navbar() {
                             <NavLink
                                 to="/about"
                                 style={({ isActive }) => ({
-                                    textDecoration: isActive ? "underline" : "none",
+                                    textDecoration: isActive
+                                        ? "underline"
+                                        : "none",
                                 })}
                             >
                                 About
@@ -75,7 +83,9 @@ export default function Navbar() {
                             <NavLink
                                 to="/settings"
                                 style={({ isActive }) => ({
-                                    textDecoration: isActive ? "underline" : "none",
+                                    textDecoration: isActive
+                                        ? "underline"
+                                        : "none",
                                 })}
                             >
                                 Settings

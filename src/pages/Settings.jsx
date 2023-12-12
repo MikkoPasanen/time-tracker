@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import "../styles/slider.css";
 import "../styles/settings.css";
 import { BiSolidMoon } from "react-icons/bi";
@@ -23,7 +24,7 @@ export default function Settings() {
                     <div className="toggle-theme-content">
                         <BiSolidMoon className="settings-icon" />
                         <label className="switch">
-                            <button onClick={() => toggleTheme()}/>
+                            <button onClick={() => toggleTheme()} />
                             <span
                                 className={
                                     darkMode ? "dark-slider" : "light-slider"
@@ -41,7 +42,7 @@ export default function Settings() {
                     <div className="toggle-tracking-mode-content">
                         <BiDice5 className="settings-icon" />
                         <label className="switch">
-                            <button onClick={() => toggleTrackingMode()}/>
+                            <button onClick={() => toggleTrackingMode()} />
                             <span
                                 className={
                                     multipleTrack

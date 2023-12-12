@@ -9,6 +9,7 @@
     gap: 1rem;
     border-bottom: 2px solid var(--border-color);
     padding: 35px;
+    position: relative;
 }
 
 .normal-navbar {
@@ -16,7 +17,7 @@
 }
 
 .hamburger-navbar {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
     z-index: 100;
@@ -42,7 +43,6 @@
     background-color: var(--filled-button-color);
     transition: all 0.3s ease-in-out;
     z-index: 999;
-
 }
 
 .hamburger-content {
@@ -50,7 +50,6 @@
     left: 0;
     top: 0;
     width: 100%;
-    max-height: 55vh;
     padding: 10px;
     background-color: var(--bg-color);
     border: 2px solid var(--border-color);
@@ -102,7 +101,6 @@ a {
 }
 
 @media only screen and (min-width: 700px) {
-
     .menu-btn {
         display: none;
     }
@@ -127,7 +125,6 @@ a {
 }
 
 @media only screen and (min-width: 1200px) {
-
     ul {
         gap: 8rem;
     }

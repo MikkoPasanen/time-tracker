@@ -28,8 +28,7 @@
         "id": 1702315136434,
         "name": "Make paper airplanes",
         "tags": [
-          "fun",
-          "important"
+          "fun"
         ],
         "startedTrackingAt": null,
         "time": 0,
@@ -48,6 +47,6 @@
   },
   "settings": {
     "darktheme": true,
-    "multipletrack": false
+    "multipletrack": true
   }
 }
